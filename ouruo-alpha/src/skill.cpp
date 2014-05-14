@@ -223,87 +223,150 @@ bool SkillTree::AddMinorSkill(Skill *newMinorSkill)
 
 void SkillTree::UpdateSkillTree()
 {
-    if (acrobatics_->IsMajor() == true)	{ AddMajorSkill(acrobatics_.get());	}
-    else { AddMinorSkill(acrobatics_.get()); }
+    if (acrobatics_->IsMajor()) {
+        AddMajorSkill(acrobatics_.get());
+    } else {
+        AddMinorSkill(acrobatics_.get());
+    }
     acrobatics_->Recompute();
 
-    if (alchemy_->IsMajor() == true)	{ AddMajorSkill(alchemy_.get());	}
-    else { AddMinorSkill(alchemy_.get()); }
+    if (alchemy_->IsMajor()) {
+        AddMajorSkill(alchemy_.get());
+    } else {
+        AddMinorSkill(alchemy_.get());
+    }
     alchemy_->Recompute();
 
-    if (alteration_->IsMajor() == true)	{ AddMajorSkill(alteration_.get());	}
-    else { AddMinorSkill(alteration_.get()); }
+    if (alteration_->IsMajor()) {
+        AddMajorSkill(alteration_.get());
+    } else {
+        AddMinorSkill(alteration_.get());
+    }
     alteration_->Recompute();
 
-    if (armorer_->IsMajor() == true)	{ AddMajorSkill(armorer_.get());	}
-    else { AddMinorSkill(armorer_.get()); }
+    if (armorer_->IsMajor()) {
+        AddMajorSkill(armorer_.get());
+    } else {
+        AddMinorSkill(armorer_.get());
+    }
     armorer_->Recompute();
 
-    if (athletics_->IsMajor() == true)	{ AddMajorSkill(athletics_.get());	}
-    else { AddMinorSkill(athletics_.get()); }
+    if (athletics_->IsMajor()) {
+        AddMajorSkill(athletics_.get());
+    } else {
+        AddMinorSkill(athletics_.get());
+    }
     athletics_->Recompute();
 
-    if (blade_->IsMajor() == true)	{ AddMajorSkill(blade_.get());	}
-    else { AddMinorSkill(blade_.get()); }
+    if (blade_->IsMajor()) {
+        AddMajorSkill(blade_.get());
+    } else {
+        AddMinorSkill(blade_.get());
+    }
     blade_->Recompute();
 
-    if (block_->IsMajor() == true)	{ AddMajorSkill(block_.get());	}
-    else { AddMinorSkill(block_.get()); }
+    if (block_->IsMajor()) {
+        AddMajorSkill(block_.get());
+    } else {
+        AddMinorSkill(block_.get());
+    }
     block_->Recompute();
 
-    if (blunt_->IsMajor() == true)	{ AddMajorSkill(blunt_.get());	}
-    else { AddMinorSkill(blunt_.get()); }
+    if (blunt_->IsMajor()) {
+        AddMajorSkill(blunt_.get());
+    } else {
+        AddMinorSkill(blunt_.get());
+    }
     blunt_->Recompute();
 
-    if (conjuration_->IsMajor() == true)	{ AddMajorSkill(conjuration_.get());	}
-    else { AddMinorSkill(conjuration_.get()); }
+    if (conjuration_->IsMajor()) {
+        AddMajorSkill(conjuration_.get());
+    } else {
+        AddMinorSkill(conjuration_.get());
+    }
     conjuration_->Recompute();
 
-    if (destruction_->IsMajor() == true)	{ AddMajorSkill(destruction_.get());	}
-    else { AddMinorSkill(destruction_.get()); }
+    if (destruction_->IsMajor()) {
+        AddMajorSkill(destruction_.get());
+    } else {
+        AddMinorSkill(destruction_.get());
+    }
     destruction_->Recompute();
 
-    if (handToHand_->IsMajor() == true)	{ AddMajorSkill(handToHand_.get());	}
-    else { AddMinorSkill(handToHand_.get()); }
+    if (handToHand_->IsMajor()) {
+        AddMajorSkill(handToHand_.get());
+    } else {
+        AddMinorSkill(handToHand_.get());
+    }
     handToHand_->Recompute();
 
-    if (heavyArmor_->IsMajor() == true)	{ AddMajorSkill(heavyArmor_.get());	}
-    else { AddMinorSkill(heavyArmor_.get()); }
+    if (heavyArmor_->IsMajor()) {
+        AddMajorSkill(heavyArmor_.get());
+    } else {
+        AddMinorSkill(heavyArmor_.get());
+    }
     heavyArmor_->Recompute();
 
-    if (illusion_->IsMajor() == true)	{ AddMajorSkill(illusion_.get());	}
-    else { AddMinorSkill(illusion_.get()); }
+    if (illusion_->IsMajor()) {
+        AddMajorSkill(illusion_.get());
+    } else {
+        AddMinorSkill(illusion_.get());
+    }
     illusion_->Recompute();
 
-    if (lightArmor_->IsMajor() == true)	{ AddMajorSkill(lightArmor_.get());	}
-    else { AddMinorSkill(lightArmor_.get()); }
+    if (lightArmor_->IsMajor()) {
+        AddMajorSkill(lightArmor_.get());
+    } else {
+        AddMinorSkill(lightArmor_.get());
+    }
     lightArmor_->Recompute();
 
-    if (marksman_->IsMajor() == true)	{ AddMajorSkill(marksman_.get());	}
-    else { AddMinorSkill(marksman_.get()); }
+    if (marksman_->IsMajor()) {
+        AddMajorSkill(marksman_.get());
+    } else {
+        AddMinorSkill(marksman_.get());
+    }
     marksman_->Recompute();
 
-    if (mercantile_->IsMajor() == true)	{ AddMajorSkill(mercantile_.get());	}
-    else { AddMinorSkill(mercantile_.get()); }
+    if (mercantile_->IsMajor()) {
+        AddMajorSkill(mercantile_.get());
+    } else {
+        AddMinorSkill(mercantile_.get());
+    }
     mercantile_->Recompute();
 
-    if (mysticism_->IsMajor() == true)	{ AddMajorSkill(mysticism_.get());	}
-    else { AddMinorSkill(mysticism_.get()); }
+    if (mysticism_->IsMajor()) {
+        AddMajorSkill(mysticism_.get());
+    } else {
+        AddMinorSkill(mysticism_.get());
+    }
     mysticism_->Recompute();
 
-    if (restoration_->IsMajor() == true)	{ AddMajorSkill(restoration_.get());	}
-    else { AddMinorSkill(restoration_.get()); }
+    if (restoration_->IsMajor()) {
+        AddMajorSkill(restoration_.get());
+    } else {
+        AddMinorSkill(restoration_.get());
+    }
     restoration_->Recompute();
 
-    if (security_->IsMajor() == true)	{ AddMajorSkill(security_.get());	}
-    else { AddMinorSkill(security_.get()); }
+    if (security_->IsMajor()) {
+        AddMajorSkill(security_.get());
+    } else {
+        AddMinorSkill(security_.get());
+    }
     security_->Recompute();
 
-    if (sneak_->IsMajor() == true)	{ AddMajorSkill(sneak_.get());	}
-    else { AddMinorSkill(sneak_.get()); }
+    if (sneak_->IsMajor()) {
+        AddMajorSkill(sneak_.get());
+    } else {
+        AddMinorSkill(sneak_.get());
+    }
     sneak_->Recompute();
 
-    if (speechCraft_->IsMajor() == true)	{ AddMajorSkill(speechCraft_.get());	}
-    else { AddMinorSkill(speechCraft_.get()); }
+    if (speechCraft_->IsMajor()) {
+        AddMajorSkill(speechCraft_.get());
+    } else {
+        AddMinorSkill(speechCraft_.get());
+    }
     speechCraft_->Recompute();
 }
