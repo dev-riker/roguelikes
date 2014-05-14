@@ -28,25 +28,26 @@
 class Actor : public Persistent
 {
 public:
-    int32_t			x_;				// x position on map
-	int32_t			y_;				// y position on map
-    int32_t			ch_;			// ascii code
-    TCODColor		col_;			// color
-	const char *	name_;			// the actor's name
-	bool			blocks_;		// can we walk on this actor?
-	Attacker * 		attacker_;		// something that deals damages
-	Destructible * 	destructible_; // something that can be damaged
-	Ai *			ai_;			// something self-updating
-	Pickable *		pickable_;		// something that can be picked and used
-	Container *		container_;	// something that can contain actors
-	 
-					Actor(int32_t x, int32_t y, int32_t ch, const char *name, const TCODColor &col);
-	virtual			~Actor();
-	void			Update();
-    void			Render() const;
-    float			GetDistance(int32_t cx, int32_t cy) const;
-	void			Load(TCODZip &zip);
-	void			Save(TCODZip &zip);    
+    int32_t         x_;             // x position on map
+    int32_t         y_;             // y position on map
+    int32_t         ch_;            // ascii code
+    TCODColor       col_;           // color
+    const char *    name_;          // the actor's name
+    bool            blocks_;        // can we walk on this actor?
+    Attacker *      attacker_;      // something that deals damages
+    Destructible *  destructible_;  // something that can be damaged
+    Ai *            ai_;            // something self-updating
+    Pickable *      pickable_;      // something that can be picked and used
+    Container *     container_;     // something that can contain actors
+
+public:
+            Actor       (int32_t x, int32_t y, int32_t ch, const char *name, const TCODColor &col);
+    virtual ~Actor      (void);
+    void    Update      (void);
+    void    Render      (void) const;
+    float   GetDistance (int32_t cx, int32_t cy) const;
+    void    Load        (TCODZip &zip);
+    void    Save        (TCODZip &zip);
 };
 
 #endif // _ACTOR_HPP_

@@ -28,70 +28,70 @@
 class Destructible : public Persistent
 {
 public:
-	//float		maxHp_;			// maximum health points
-	//float		hp_;			// current health points
-	float		defense_;		// hit points deflected
-	const char	*corpseName_;	// the actor's name once dead/destroyed
+    //float		maxHp_;			// maximum health points
+    //float		hp_;			// current health points
+    float		  defense_;     // hit points deflected
+    const char *  corpseName_;  // the actor's name once dead/destroyed
 
-	/*
-	// Insieme dei Basic Attributes
-	std::unique_ptr <Attribute>	agility_;
-	std::unique_ptr <Attribute>	endurance_;
-	std::unique_ptr <Attribute>	intelligence_;
-	std::unique_ptr <Attribute>	luck_;
-	std::unique_ptr <Attribute>	personality_;
-	std::unique_ptr <Attribute>	speed_;
-	std::unique_ptr <Attribute>	strength_;
-	std::unique_ptr <Attribute>	willpower_;
+    WarriorClass  mobileClass_;
+    /*
+    // Insieme dei Basic Attributes
+    std::unique_ptr <Attribute>	agility_;
+    std::unique_ptr <Attribute>	endurance_;
+    std::unique_ptr <Attribute>	intelligence_;
+    std::unique_ptr <Attribute>	luck_;
+    std::unique_ptr <Attribute>	personality_;
+    std::unique_ptr <Attribute>	speed_;
+    std::unique_ptr <Attribute>	strength_;
+    std::unique_ptr <Attribute>	willpower_;
 
-	// Insieme dei Derived Attributes
-	std::unique_ptr <Attribute>	health_;
-	std::unique_ptr <Attribute>	magicka_;
-	std::unique_ptr <Attribute>	fatigue_;
-	std::unique_ptr <Attribute>	encumbrance_;
-	*/
+    // Insieme dei Derived Attributes
+    std::unique_ptr <Attribute>	health_;
+    std::unique_ptr <Attribute>	magicka_;
+    std::unique_ptr <Attribute>	fatigue_;
+    std::unique_ptr <Attribute>	encumbrance_;
+    */
 
-	WarriorClass mobileClass_;
-
-	Destructible(float maxHp, float defense, const char *corpseName);
-	virtual ~Destructible() { };
-	//inline bool IsDead() { return hp_ <= 0; }
-	inline bool IsDead() { return mobileClass_.basicAttributes_.GetHealth()->GetCurrValue() <= 0; }
-	float TakeDamage(Actor *owner, float damage);
-	float Heal(float amount);
-	virtual void Die(Actor *owner);
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);	
-	static Destructible *Create(TCODZip &zip);
+public:
+                          Destructible  (float maxHp, float defense, const char *corpseName);
+    virtual               ~Destructible (void) { };
+    //inline bool IsDead() { return hp_ <= 0; }
+    inline bool           IsDead        (void) { return mobileClass_.basicAttributes_.GetHealth()->GetCurrValue() <= 0; }
+    float                 TakeDamage    (Actor *owner, float damage);
+    float                 Heal          (float amount);
+    virtual void          Die           (Actor *owner);
+    void                  Load          (TCODZip &zip);
+    void                  Save          (TCODZip &zip);
+    static Destructible * Create        (TCODZip &zip);
 
 protected:
-	enum DestructibleType
-	{
-		MONSTER, PLAYER
-	};
+    enum DestructibleType {
+        MONSTER, PLAYER
+    };
 };
 
 class MonsterDestructible : public Destructible
 {
 public:
-	MonsterDestructible(float maxHp, float defense, const char *corpseName);
-	void Die(Actor *owner);
-	void Save(TCODZip &zip);
+         MonsterDestructible (float maxHp, float defense, const char *corpseName);
+    void Die                 (Actor *owner);
+    void Save                (TCODZip &zip);
 
-	// Insieme degli NPC Attributes
-	std::unique_ptr <Attribute>	aggression_;
-	std::unique_ptr <Attribute>	confidence_;
-	std::unique_ptr <Attribute>	disposition_;
-	std::unique_ptr <Attribute>	energyLevel_;
-	std::unique_ptr <Attribute>	responsibility_;
+public:
+    // Insieme degli NPC Attributes
+    std::unique_ptr <Attribute>	aggression_;
+    std::unique_ptr <Attribute>	confidence_;
+    std::unique_ptr <Attribute>	disposition_;
+    std::unique_ptr <Attribute>	energyLevel_;
+    std::unique_ptr <Attribute>	responsibility_;
 };
 
 class PlayerDestructible : public Destructible
 {
 public:
-	PlayerDestructible(float maxHp, float defense, const char *corpseName);
-	void Die(Actor *owner);
-	void Save(TCODZip &zip);
+         PlayerDestructible (float maxHp, float defense, const char *corpseName);
+    void Die                (Actor *owner);
+    void Save               (TCODZip &zip);
 };
 
 #endif // _DESTRUCTIBLE_H_

@@ -28,180 +28,180 @@
 class Skill : public Attribute
 {
 public:
-				Skill();
+         Skill    (void);
 
-	bool		IsMajor();
-	void		SetMajor(bool newValue);
+    bool IsMajor  (void);
+    void SetMajor (bool newValue);
 
-	/*
-	void		SetValue(int newValue);
-	int			GetValue(void);
-	*/
+    /*
+    void		SetValue(int newValue);
+    int			GetValue(void);
+    */
 
 protected:
-	bool		major_;
+    bool major_;
 };
 
 class BladeSkill : public Skill
 {
 public:
-	BladeSkill();
+    BladeSkill(void);
 };
 
 class BluntSkill : public Skill
 {
 public:
-	BluntSkill();
+    BluntSkill(void);
 };
 
 class HandToHandSkill : public Skill
 {
 public:
-	HandToHandSkill();
+    HandToHandSkill(void);
 };
 
 class ArmorerSkill : public Skill
 {
 public:
-	ArmorerSkill();
+    ArmorerSkill(void);
 };
 
 class BlockSkill : public Skill
 {
 public:
-	BlockSkill();
+    BlockSkill(void);
 };
 
 class HeavyArmorSkill : public Skill
 {
 public:
-	HeavyArmorSkill();
+    HeavyArmorSkill(void);
 };
 
 class AthleticsSkill : public Skill
 {
 public:
-	AthleticsSkill();
+    AthleticsSkill(void);
 };
 
 class AcrobaticsSkill : public Skill
 {
 public:
-	AcrobaticsSkill();
+    AcrobaticsSkill(void);
 };
 
 class LightArmorSkill : public Skill
 {
 public:
-	LightArmorSkill();
+    LightArmorSkill(void);
 };
 
 class SecuritySkill : public Skill
 {
 public:
-	SecuritySkill();
+    SecuritySkill(void);
 };
 
 class SneakSkill : public Skill
 {
 public:
-	SneakSkill();
+    SneakSkill(void);
 };
 
 class MarksmanSkill : public Skill
 {
 public:
-	MarksmanSkill();
+    MarksmanSkill(void);
 };
 
 class MercantileSkill : public Skill
 {
 public:
-	MercantileSkill();
+    MercantileSkill(void);
 };
 
 class SpeechCraftSkill : public Skill
 {
 public:
-	SpeechCraftSkill();
+    SpeechCraftSkill(void);
 };
 
 class IllusionSkill : public Skill
 {
 public:
-	IllusionSkill();
+    IllusionSkill(void);
 };
 
 class AlchemySkill : public Skill
 {
 public:
-	AlchemySkill();
+    AlchemySkill(void);
 };
 
 class ConjurationSkill : public Skill
 {
 public:
-	ConjurationSkill();
+    ConjurationSkill(void);
 };
 
 class MysticismSkill : public Skill
 {
 public:
-	MysticismSkill();
+    MysticismSkill(void);
 };
 
 class AlterationSkill : public Skill
 {
 public:
-	AlterationSkill();
+    AlterationSkill(void);
 };
 
 class DestructionSkill : public Skill
 {
 public:
-	DestructionSkill();
+    DestructionSkill(void);
 };
 
 class RestorationSkill : public Skill
 {
 public:
-	RestorationSkill();
+    RestorationSkill(void);
 };
 
 class SkillTree
 {
 public:
-			SkillTree();
-	void	UpdateSkillTree();
+         SkillTree(void);
+    void UpdateSkillTree(void);
 
 protected:
-	bool	AddMajorSkill(Skill *newMajorSkill);
-	bool	AddMinorSkill(Skill *newMinorSkill);
+    bool AddMajorSkill(Skill *newMajorSkill);
+    bool AddMinorSkill(Skill *newMinorSkill);
 
 public:
-	std::map <std::string, Skill *>		majorSkills_;
-	std::map <std::string, Skill *>		minorSkills_;
+    std::map <std::string, Skill *>	   majorSkills_;
+    std::map <std::string, Skill *>	   minorSkills_;
 
-	std::unique_ptr <AcrobaticsSkill>	acrobatics_;
-	std::unique_ptr <AlchemySkill>		alchemy_;
-	std::unique_ptr <AlterationSkill>	alteration_;
-	std::unique_ptr <ArmorerSkill>		armorer_;
-	std::unique_ptr <AthleticsSkill>	athletics_;
-	std::unique_ptr <BladeSkill>		blade_;
-	std::unique_ptr <BlockSkill>		block_;
-	std::unique_ptr <BluntSkill>		blunt_;
-	std::unique_ptr <ConjurationSkill>	conjuration_;
-	std::unique_ptr <DestructionSkill>	destruction_;
-	std::unique_ptr <HandToHandSkill>	handToHand_;
-	std::unique_ptr <HeavyArmorSkill>	heavyArmor_;
-	std::unique_ptr <IllusionSkill>		illusion_;
-	std::unique_ptr <LightArmorSkill>	lightArmor_;
-	std::unique_ptr <MarksmanSkill>		marksman_;
-	std::unique_ptr <MercantileSkill>	mercantile_;
-	std::unique_ptr <MysticismSkill>	mysticism_;
-	std::unique_ptr <RestorationSkill>	restoration_;
-	std::unique_ptr <SecuritySkill>		security_;
-	std::unique_ptr <SneakSkill>		sneak_;
-	std::unique_ptr <SpeechCraftSkill>	speechCraft_;
+    std::unique_ptr <AcrobaticsSkill>  acrobatics_;
+    std::unique_ptr <AlchemySkill>     alchemy_;
+    std::unique_ptr <AlterationSkill>  alteration_;
+    std::unique_ptr <ArmorerSkill>     armorer_;
+    std::unique_ptr <AthleticsSkill>   athletics_;
+    std::unique_ptr <BladeSkill>       blade_;
+    std::unique_ptr <BlockSkill>       block_;
+    std::unique_ptr <BluntSkill>       blunt_;
+    std::unique_ptr <ConjurationSkill> conjuration_;
+    std::unique_ptr <DestructionSkill> destruction_;
+    std::unique_ptr <HandToHandSkill>  handToHand_;
+    std::unique_ptr <HeavyArmorSkill>  heavyArmor_;
+    std::unique_ptr <IllusionSkill>	   illusion_;
+    std::unique_ptr <LightArmorSkill>  lightArmor_;
+    std::unique_ptr <MarksmanSkill>	   marksman_;
+    std::unique_ptr <MercantileSkill>  mercantile_;
+    std::unique_ptr <MysticismSkill>   mysticism_;
+    std::unique_ptr <RestorationSkill> restoration_;
+    std::unique_ptr <SecuritySkill>    security_;
+    std::unique_ptr <SneakSkill>       sneak_;
+    std::unique_ptr <SpeechCraftSkill> speechCraft_;
 };
 #endif // _SKILL_HPP_

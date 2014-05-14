@@ -28,58 +28,57 @@
 class Ai : public Persistent
 {
 public:
-	virtual 		~Ai() { };
-	virtual void	Update(Actor *owner) = 0;
-	static Ai		*Create(TCODZip &zip);
+    virtual      ~Ai    (void) { };
+    virtual void Update (Actor *owner) = 0;
+    static Ai *  Create (TCODZip &zip);
 
 protected:
-	enum AiType
-	{
-		MONSTER, CONFUSED_MONSTER, PLAYER
-	};
+    enum AiType {
+        MONSTER, CONFUSED_MONSTER, PLAYER
+    };
 };
 
 class MonsterAi : public Ai
 {
 public:
-			MonsterAi();
-	void	Update(Actor *owner);
-	void	Load(TCODZip &zip);
-	void	Save(TCODZip &zip);
+         MonsterAi (void);
+    void Update    (Actor *owner);
+    void Load      (TCODZip &zip);
+    void Save      (TCODZip &zip);
 
 protected:
-	int32_t		moveCount_;
+    int32_t moveCount_;
 
-	void	MoveOrAttack(Actor *owner, int32_t targetx, int32_t targety);
+protected:
+    void MoveOrAttack (Actor *owner, int32_t targetx, int32_t targety);
 };
 
 class ConfusedMonsterAi : public Ai
 {
 public:
-			ConfusedMonsterAi(int32_t nbTurns, Ai *oldAi);
-	void	Update(Actor *owner);
-	void	Load(TCODZip &zip);
-	void	Save(TCODZip &zip);
+         ConfusedMonsterAi (int32_t nbTurns, Ai *oldAi);
+    void Update            (Actor *owner);
+    void Load              (TCODZip &zip);
+    void Save              (TCODZip &zip);
 
 protected:
-	int32_t		nbTurns_;
-	Ai		*oldAi_;
+    int32_t nbTurns_;
+    Ai *    oldAi_;
 };
 
 class PlayerAi : public Ai
 {
 public:
-	void	Update(Actor *owner);
-	void	Load(TCODZip &zip);
-	void	Save(TCODZip &zip);
+    void Update (Actor *owner);
+    void Load   (TCODZip &zip);
+    void Save   (TCODZip &zip);
 protected:
-	bool	MoveOrAttack(Actor *owner, int32_t targetx, int32_t targety);
-	void	HandleActionKey(Actor *owner, int32_t ascii);
-	Actor	*ChooseFromInventory(Actor *owner);
-	void	DisplayCharacterSheet(Actor *owner);
+    bool    MoveOrAttack          (Actor *owner, int32_t targetx, int32_t targety);
+    void    HandleActionKey       (Actor *owner, int32_t ascii);
+    Actor * ChooseFromInventory   (Actor *owner);
+    void    DisplayCharacterSheet (Actor *owner);
 private:
-	void	PrintAttributeOnCharacterSheet(TCODConsole &con, Attribute *currAttr, int32_t baseRow, int32_t baseColumn);
+    void PrintAttributeOnCharacterSheet (TCODConsole &con, Attribute *currAttr, int32_t baseRow, int32_t baseColumn);
 };
 
 #endif // _AI_HPP_
-

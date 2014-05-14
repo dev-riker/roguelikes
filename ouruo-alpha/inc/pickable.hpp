@@ -28,58 +28,60 @@
 class Pickable : public Persistent
 {
 public:
-	virtual ~Pickable() { };
-	bool Pick(Actor *owner, Actor *wearer);
-	void Drop(Actor *owner, Actor *wearer);
-	virtual bool Use(Actor *owner, Actor *wearer);
-	static Pickable *Create(TCODZip &zip);
+    virtual           ~Pickable (void) { };
+    bool              Pick      (Actor *owner, Actor *wearer);
+    void              Drop      (Actor *owner, Actor *wearer);
+    virtual bool      Use       (Actor *owner, Actor *wearer);
+    static Pickable * Create    (TCODZip &zip);
 
 protected:
-	enum PickableType
-	{
-		HEALER, LIGHTNING_BOLT, CONFUSER, FIREBALL
-	};
+    enum PickableType {
+        HEALER, LIGHTNING_BOLT, CONFUSER, FIREBALL
+    };
 };
 
 class Healer : public Pickable
 {
 public:
-	float amount_; // how many hp
+    float amount_; // how many hp
 
-	Healer(float amount);
-	bool Use(Actor *owner, Actor *wearer);
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);	
+public:
+         Healer (float amount);
+    bool Use    (Actor *owner, Actor *wearer);
+    void Load   (TCODZip &zip);
+    void Save   (TCODZip &zip);
 };
 
 class LightningBolt : public Pickable
 {
 public:
-	float range_;
-	float damage_;
-	LightningBolt(float range, float damage);
-	bool Use(Actor *owner, Actor *wearer);
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);
+    float range_;
+    float damage_;
+public:
+         LightningBolt (float range, float damage);
+    bool Use           (Actor *owner, Actor *wearer);
+    void Load          (TCODZip &zip);
+    void Save          (TCODZip &zip);
 };
 
 class Confuser : public Pickable
 {
 public:
-	int nbTurns_;
-	float range_;
-	Confuser(int nbTurns, float range);
-	bool Use(Actor *owner, Actor *wearer);	
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);
+    int   nbTurns_;
+    float range_;
+public:
+         Confuser (int nbTurns, float range);
+    bool Use      (Actor *owner, Actor *wearer);
+    void Load     (TCODZip &zip);
+    void Save     (TCODZip &zip);
 };
 
 class Fireball : public LightningBolt
 {
 public:
-	Fireball(float range, float damage);
-	bool Use(Actor *owner, Actor *wearer);	
-	void Save(TCODZip &zip);	
+         Fireball (float range, float damage);
+    bool Use      (Actor *owner, Actor *wearer);
+    void Save     (TCODZip &zip);
 };
 
 #endif // _PICKABLE_H_

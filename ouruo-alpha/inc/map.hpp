@@ -25,10 +25,9 @@
 #ifndef _MAP_H_
 #define _MAP_H_
 
-struct Tile
-{
+struct Tile {
     bool explored_; // has the player already seen this tile ?
-    Tile() : explored_(false) {}
+         Tile(void) : explored_(false) { }
 };
  
 class Map : public Persistent
@@ -36,31 +35,33 @@ class Map : public Persistent
 public:
 	int32_t width_;
 	int32_t height_;
- 
-    Map(int32_t width, int32_t height);
-    virtual ~Map();
-    bool IsWall(int32_t x, int32_t y) const;
-	bool IsInFov(int32_t x, int32_t y) const;
-    bool IsExplored(int32_t x, int32_t y) const;
-    bool CanWalk(int32_t x, int32_t y) const;
-    void ComputeFov();
-    void Render() const;
 
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);
- 	void Init(bool withActors);
+public:
+            Map        (int32_t width, int32_t height);
+    virtual ~Map       (void);
+    bool    IsWall     (int32_t x, int32_t y) const;
+	bool    IsInFov    (int32_t x, int32_t y) const;
+    bool    IsExplored (int32_t x, int32_t y) const;
+    bool    CanWalk    (int32_t x, int32_t y) const;
+    void    ComputeFov (void);
+    void    Render     (void) const;
+
+	void    Load       (TCODZip &zip);
+	void    Save       (TCODZip &zip);
+ 	void    Init       (bool withActors);
 
 protected:
-    Tile *tiles_;
-    TCODMap *map_;
-    long seed_;
-    TCODRandom *rng_;
+    Tile *       tiles_;
+    TCODMap *    map_;
+    long         seed_;
+    TCODRandom * rng_;
     friend class BspListener;
- 
-    void Dig(int32_t x1, int32_t y1, int32_t x2, int32_t y2);
-    void CreateRoom(bool first, int32_t x1, int32_t y1, int32_t x2, int32_t y2,bool withActors);
-    void AddMonster(int32_t x, int32_t y);
-    void AddItem(int32_t x, int32_t y);
+
+protected:
+    void Dig        (int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+    void CreateRoom (bool first, int32_t x1, int32_t y1, int32_t x2, int32_t y2,bool withActors);
+    void AddMonster (int32_t x, int32_t y);
+    void AddItem    (int32_t x, int32_t y);
 };
 
 #endif // _MAP_H_

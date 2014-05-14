@@ -28,39 +28,39 @@
 class Engine
 {
 public:
-	enum GameStatus
-	{
-		STARTUP,
-		IDLE,
-		NEW_TURN,
-		VICTORY,
-		DEFEAT
-	} gameStatus;
-	
-	TCOD_key_t lastKey_;
-	TCOD_mouse_t mouse_;
-    TCODList<Actor *> actors_;
-    Actor *player_;
-    Map *map_;
-    int32_t fovRadius_;
-    int32_t screenWidth_;
-    int32_t screenHeight_;
-    Gui *gui_;
+    enum GameStatus {
+        STARTUP,
+        IDLE,
+        NEW_TURN,
+        VICTORY,
+        DEFEAT
+    } gameStatus;
 
-    Engine(int32_t screenWidth, int32_t screenHeight);
-    virtual ~Engine();
-    void Update();
-    void Render();
-    void SendToBack(Actor *actor);
-    Actor *GetActor(int32_t x, int32_t y) const;
-    Actor *GetClosestMonster(int32_t x, int32_t y, float range) const;
-    bool PickATile(int32_t *x, int32_t *y, float maxRange = 0.0f);
-   	void Load();
-	void Save();
-    void Init();
-    void Term();
+    TCOD_key_t        lastKey_;
+    TCOD_mouse_t      mouse_;
+    TCODList<Actor *> actors_;
+    Actor *           player_;
+    Map *             map_;
+    int32_t           fovRadius_;
+    int32_t           screenWidth_;
+    int32_t           screenHeight_;
+    Gui *             gui_;
+
+public:
+            Engine            (int32_t screenWidth, int32_t screenHeight);
+    virtual ~Engine           (void);
+    void    Update            (void);
+    void    Render            (void);
+    void    SendToBack        (Actor *actor);
+    Actor * GetActor          (int32_t x, int32_t y) const;
+    Actor * GetClosestMonster (int32_t x, int32_t y, float range) const;
+    bool    PickATile         (int32_t *x, int32_t *y, float maxRange = 0.0f);
+    void    Load              (void);
+    void    Save              (void);
+    void    Init              (void);
+    void    Term              (void);
 };
- 
+
 extern Engine engine;
 
 #endif // _ENGINE_H_

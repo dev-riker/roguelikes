@@ -25,59 +25,60 @@
 #ifndef _GUI_H_
 #define _GUI_H_
 
-class Menu 
+class Menu
 {
 public:
-	enum MenuItemCode 
-	{
-		NONE,
-		NEW_GAME,
-		CONTINUE,
-		EXIT
-	};
-	~Menu();
-	void Clear();
-	void AddItem(MenuItemCode code, const char *label);
-	MenuItemCode Pick();
+    enum MenuItemCode  {
+        NONE,
+        NEW_GAME,
+        CONTINUE,
+        EXIT
+    };
+
+public:
+                 ~Menu   (void);
+    void         Clear   (void);
+    void         AddItem (MenuItemCode code, const char *label);
+    MenuItemCode Pick    (void);
 
 protected:
-	struct MenuItem
-	{
-		MenuItemCode code;
-		const char *label;
-	};
+    struct MenuItem {
+        MenuItemCode code;
+        const char * label;
+    };
 
-	TCODList <MenuItem *> items_;
+    TCODList <MenuItem *> items_;
 };
 
 class Gui : public Persistent
 {
 public:
-	Menu menu_;
+    Menu menu_;
 
-	Gui();
-	virtual ~Gui();
-	void Render();
-	void Message(const TCODColor &col, const char *text, ...);
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);
-	void Clear();
+public:
+            Gui     (void);
+    virtual ~Gui    (void);
+    void    Render  (void);
+    void    Message (const TCODColor &col, const char *text, ...);
+    void    Load    (TCODZip &zip);
+    void    Save    (TCODZip &zip);
+    void    Clear   (void);
 
 protected:
-	TCODConsole *con_;
-	struct message
-	{
-		char *text;
-		TCODColor col;
-		message(const char *text, const TCODColor &col);
-		~message();
-	};
-	TCODList <message *> log_;
+    struct message {
+        char *    text;
+        TCODColor col;
+        message   (const char *text, const TCODColor &col);
+        ~message  (void);
+    };
+    TCODList <message *> log_;
+    TCODConsole *        con_;
 
-	void RenderBar(int32_t x, int32_t y, int32_t width, const char *name,
-		float value, float maxValue, const TCODColor &barColor,
-		const TCODColor &backColor);
-	void RenderMouseLook();
+protected:
+    void RenderBar       (int32_t x, int32_t y, int32_t width, const char *name,
+                           float value, float maxValue, const TCODColor &barColor,
+                           const TCODColor &backColor);
+    void RenderMouseLook (void);
 };
 
 #endif // _GUI_H_

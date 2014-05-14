@@ -28,13 +28,14 @@
 class Attacker : public Persistent
 {
 public:
-	float 		power_; // hit points given
+    float power_; // hit points given
 
-				Attacker(float power);
-	virtual 	~Attacker() { };
-	void 		Attack(Actor *owner, Actor *target);
-	void 		Load(TCODZip &zip);
-	void 		Save(TCODZip &zip);
+public:
+            Attacker  (float power);
+    virtual ~Attacker (void) { };
+    void    Attack    (Actor *owner, Actor *target);
+    void    Load      (TCODZip &zip);
+    void    Save      (TCODZip &zip);
 };
 
 #endif // _ATTACKER_H_

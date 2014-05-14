@@ -28,15 +28,16 @@
 class Container : public Persistent
 {
 public:
-	int size_; // maximum number of actors. 0=unlimited
+	int                size_; // maximum number of actors. 0=unlimited
 	TCODList <Actor *> inventory;		
 
-	Container(int32_t size);
-	virtual ~Container();
-	bool Add(Actor *actor);
-	void Remove(Actor *actor);
-	void Load(TCODZip &zip);
-	void Save(TCODZip &zip);
+public:
+	        Container  (int32_t size);
+	virtual ~Container (void);
+	bool    Add        (Actor *actor);
+	void    Remove     (Actor *actor);
+	void    Load       (TCODZip &zip);
+	void    Save       (TCODZip &zip);
 };
 
 #endif // _CONTAINER_H_
