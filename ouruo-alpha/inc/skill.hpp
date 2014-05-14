@@ -194,9 +194,9 @@ public:
     std::unique_ptr <DestructionSkill> destruction_;
     std::unique_ptr <HandToHandSkill>  handToHand_;
     std::unique_ptr <HeavyArmorSkill>  heavyArmor_;
-    std::unique_ptr <IllusionSkill>	   illusion_;
+    std::unique_ptr <IllusionSkill>    illusion_;
     std::unique_ptr <LightArmorSkill>  lightArmor_;
-    std::unique_ptr <MarksmanSkill>	   marksman_;
+    std::unique_ptr <MarksmanSkill>    marksman_;
     std::unique_ptr <MercantileSkill>  mercantile_;
     std::unique_ptr <MysticismSkill>   mysticism_;
     std::unique_ptr <RestorationSkill> restoration_;
