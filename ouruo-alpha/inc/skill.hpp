@@ -179,8 +179,8 @@ protected:
     bool AddMinorSkill(Skill *newMinorSkill);
 
 public:
-    std::map <std::string, Skill *>	   majorSkills_;
-    std::map <std::string, Skill *>	   minorSkills_;
+    std::map <std::string, Skill *>    majorSkills_;
+    std::map <std::string, Skill *>    minorSkills_;
 
     std::unique_ptr <AcrobaticsSkill>  acrobatics_;
     std::unique_ptr <AlchemySkill>     alchemy_;
