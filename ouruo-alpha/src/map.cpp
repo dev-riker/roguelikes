@@ -84,7 +84,7 @@ void Map::Init(bool withActors)
     bsp.traverseInvertedLevelOrder(&listener, (void *) withActors);
 }
 
-Map::~Map()
+Map::~Map(void)
 {
     delete [] tiles_;
     delete map_;
@@ -273,7 +273,7 @@ bool Map::IsInFov(int32_t x, int32_t y) const
     return false;
 }
  
-void Map::ComputeFov()
+void Map::ComputeFov(void)
 {
     map_->computeFov(engine.player_->x_, engine.player_->y_, engine.fovRadius_);
 }

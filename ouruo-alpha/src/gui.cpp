@@ -31,23 +31,23 @@ static const int32_t BAR_WIDTH		= 20;
 static const int32_t MSG_X			= BAR_WIDTH + 2;
 static const int32_t MSG_HEIGHT		= PANEL_HEIGHT - 1;
 
-Gui::Gui()
+Gui::Gui(void)
 {
 	con_ = new TCODConsole(engine.screenWidth_, PANEL_HEIGHT);
 }
 
-Gui::~Gui()
+Gui::~Gui(void)
 {
 	delete con_;
 	Clear();
 }
 
-void Gui::Clear()
+void Gui::Clear(void)
 {
 	log_.clearAndDelete();
 }
 
-void Gui::Render()
+void Gui::Render(void)
 {
 	// clear the GUI console
 	con_->setDefaultBackground(TCODColor::black);
@@ -100,12 +100,12 @@ Gui::message::message(const char *text, const TCODColor &col) :
 {
 }
 
-Gui::message::~message()
+Gui::message::~message(void)
 {
 	free(text);
 }
 
-void Gui::RenderMouseLook()
+void Gui::RenderMouseLook(void)
 {
 	if (!engine.map_->IsInFov(engine.mouse_.cx, engine.mouse_.cy)) {
 		// if mouse is out of fov, nothing to render
@@ -165,12 +165,12 @@ void Gui::Message(const TCODColor &col, const char *text, ...)
 	while (lineEnd);
 }
 
-Menu::~Menu()
+Menu::~Menu(void)
 {
 	Clear();
 }
 
-void Menu::Clear()
+void Menu::Clear(void)
 {
 	items_.clearAndDelete();
 }
@@ -183,7 +183,7 @@ void Menu::AddItem(MenuItemCode code, const char *label)
 	items_.push(item);
 }
 
-Menu::MenuItemCode Menu::Pick()
+Menu::MenuItemCode Menu::Pick(void)
 {
 	static TCODImage img("menu_background1.png");
 	int32_t selectedItem = 0;

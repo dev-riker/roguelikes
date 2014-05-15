@@ -28,7 +28,7 @@ Container::Container(int32_t size) : size_(size)
 {
 }
 
-Container::~Container()
+Container::~Container(void)
 {
 	inventory.clearAndDelete();
 }

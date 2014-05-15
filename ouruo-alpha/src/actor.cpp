@@ -26,35 +26,35 @@
 #include "main.hpp"
 
 Actor::Actor(int32_t x, int32_t y, int32_t ch, const char *name, const TCODColor &col) :
-    x_(x), y_(y), ch_(ch), col_(col), name_(name),
-    blocks_(true), attacker_(nullptr), destructible_(nullptr), ai_(nullptr),
-    pickable_(nullptr), container_(nullptr)
+        x_(x), y_(y), ch_(ch), col_(col), name_(name),
+        blocks_(true), attacker_(nullptr), destructible_(nullptr), ai_(nullptr),
+        pickable_(nullptr), container_(nullptr)
 {
-}
- 
-Actor::~Actor()
-{
-	if (attacker_) delete attacker_;
-	if (destructible_) delete destructible_;
-	if (ai_) delete ai_;
-	if (pickable_) delete pickable_;
-	if (container_) delete container_;
 }
 
-void Actor::Render() const
+Actor::~Actor(void)
+{
+    if (attacker_) delete attacker_;
+    if (destructible_) delete destructible_;
+    if (ai_) delete ai_;
+    if (pickable_) delete pickable_;
+    if (container_) delete container_;
+}
+
+void Actor::Render(void) const
 {
     TCODConsole::root->setChar(x_, y_, ch_);
     TCODConsole::root->setCharForeground(x_, y_, col_);
 }
 
-void Actor::Update()
+void Actor::Update(void)
 {
-	if (ai_) ai_->Update(this);
+    if (ai_) ai_->Update(this);
 }
 
 float Actor::GetDistance(int32_t cx, int32_t cy) const
 {
-	int32_t dx = x_ - cx;
-	int32_t dy = y_ - cy;
-	return sqrtf((float) (dx * dx + dy * dy));
+    int32_t dx = x_ - cx;
+    int32_t dy = y_ - cy;
+    return sqrtf((float) (dx * dx + dy * dy));
 }

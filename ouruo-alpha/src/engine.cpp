@@ -33,7 +33,7 @@ Engine::Engine(int32_t screenWidth, int32_t screenHeight) : gameStatus(STARTUP),
     gui_ = new Gui();
 }
 
-void Engine::Init()
+void Engine::Init(void)
 {
     player_ = new Actor(40, 25, '@', "player", TCODColor::white);
     player_->destructible_ = new PlayerDestructible(30, 2, "il tuo cadavere");
@@ -47,20 +47,20 @@ void Engine::Init()
     gameStatus = STARTUP;
 }
 
-Engine::~Engine()
+Engine::~Engine(void)
 {
 	Term();
     delete gui_;
 }
 
-void Engine::Term()
+void Engine::Term(void)
 {
     actors_.clearAndDelete();
     if (map_) delete map_;
     gui_->Clear();
 }
 
-void Engine::Update()
+void Engine::Update(void)
 {
 	if (gameStatus == STARTUP) {
 		map_->ComputeFov();
@@ -81,7 +81,7 @@ void Engine::Update()
 	}
 }
 
-void Engine::Render()
+void Engine::Render(void)
 {
 	TCODConsole::root->clear();
 	// draw the map

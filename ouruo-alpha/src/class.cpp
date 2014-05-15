@@ -24,11 +24,11 @@
 
 #include "main.hpp"
 
-MobileBaseClass::MobileBaseClass()
+MobileBaseClass::MobileBaseClass(void)
 {
 }
 
-WarriorClass::WarriorClass()
+WarriorClass::WarriorClass(void)
 {
 	skills_.armorer_->SetMajor(true);
 	skills_.athletics_->SetMajor(true);

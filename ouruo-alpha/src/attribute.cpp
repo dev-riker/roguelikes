@@ -43,7 +43,7 @@ Attribute::Attribute(char name[])
 	currentValue_ = 0;
 }
 
-Attribute::Attribute()
+Attribute::Attribute(void)
 {
 	name_ = "NO_NAME";
 	effects_.clear();
@@ -51,7 +51,7 @@ Attribute::Attribute()
 	currentValue_ = 0;
 }
 
-Attribute::~Attribute()
+Attribute::~Attribute(void)
 {
 }
 
@@ -68,17 +68,17 @@ void Attribute::SetBaseValue(int newValue)
 	baseValue_ = newValue;
 }
 
-int32_t Attribute::GetBaseValue() const
+int32_t Attribute::GetBaseValue(void) const
 {
 	return baseValue_;
 }
 
-int32_t Attribute::GetCurrValue() const
+int32_t Attribute::GetCurrValue(void) const
 {
 	return currentValue_;
 }
 
-const char *Attribute::GetName() const
+const char *Attribute::GetName(void) const
 {
 	return name_.c_str();
 }
@@ -154,7 +154,7 @@ bool Attribute::IsEffectFinished(active_effect_t effect)
 	return ret;
 }
 
-void Attribute::RoundTick()
+void Attribute::RoundTick(void)
 {
 	// Scorre la lista degli effetti attivi decrementando il numero di round rimanenti
 	for (uint32_t i = 0; i < effects_.size(); i++) {
@@ -197,7 +197,7 @@ bool Attribute::UpdateEffect(effect_type effect, int32_t value, int32_t rounds)
 	return true;
 }
 
-BasicAttributes::BasicAttributes()
+BasicAttributes::BasicAttributes(void)
 {
 	agility_ =		std::unique_ptr<Agility>		(new Agility());
 	endurance_ =	std::unique_ptr<Endurance>		(new Endurance());
@@ -211,7 +211,7 @@ BasicAttributes::BasicAttributes()
 	derivedAttributes_ = nullptr;
 }
 
-BasicAttributes::~BasicAttributes()
+BasicAttributes::~BasicAttributes(void)
 {
 
 }
@@ -221,7 +221,7 @@ void BasicAttributes::SetDerivedAttributes(DerivedAttributes *newDerivedAttribut
 	derivedAttributes_ = newDerivedAttributes;
 }
 
-void BasicAttributes::Recompute()
+void BasicAttributes::Recompute(void)
 {
 	strength_->Recompute();
 	intelligence_->Recompute();
@@ -251,7 +251,7 @@ void BasicAttributes::Recompute()
 	}
 }
 
-DerivedAttributes::DerivedAttributes()
+DerivedAttributes::DerivedAttributes(void)
 {
 	health_ = 		std::unique_ptr <Health> 		(new Health());
 	magicka_ = 		std::unique_ptr <Magicka> 		(new Magicka());
@@ -259,12 +259,12 @@ DerivedAttributes::DerivedAttributes()
 	encumbrance_ = 	std::unique_ptr <Encumbrance> 	(new Encumbrance());
 }
 
-DerivedAttributes::~DerivedAttributes()
+DerivedAttributes::~DerivedAttributes(void)
 {
 
 }
 
-NPCAttributes::NPCAttributes()
+NPCAttributes::NPCAttributes(void)
 {
 	aggression_ = 		std::unique_ptr <Aggression> 		(new Aggression());
 	confidence_ = 		std::unique_ptr <Confidence> 		(new Confidence());
@@ -273,92 +273,92 @@ NPCAttributes::NPCAttributes()
 	responsibility_ = 	std::unique_ptr <Responsibility> 	(new Responsibility());
 }
 
-NPCAttributes::~NPCAttributes()
+NPCAttributes::~NPCAttributes(void)
 {
 
 }
 
-Agility::Agility()
+Agility::Agility(void)
 {
 	name_ = "Agility";
 }
 
-Endurance::Endurance()
+Endurance::Endurance(void)
 {
 	name_ = "Endurance";
 }
 
-Intelligence::Intelligence()
+Intelligence::Intelligence(void)
 {
 	name_ = "Intelligence";
 }
 
-Luck::Luck()
+Luck::Luck(void)
 {
 	name_ = "Luck";
 }
 
-Personality::Personality()
+Personality::Personality(void)
 {
 	name_ = "Personality";
 }
 
-Speed::Speed()
+Speed::Speed(void)
 {
 	name_ = "Speed";
 }
 
-Strength::Strength()
+Strength::Strength(void)
 {
 	name_ = "Strength";
 }
 
-Willpower::Willpower()
+Willpower::Willpower(void)
 {
 	name_ = "Willpower";
 }
 
-Health::Health()
+Health::Health(void)
 {
 	name_ = "Health";
 }
 
-Magicka::Magicka()
+Magicka::Magicka(void)
 {
 	name_ = "Magicka";
 }
 
-Fatigue::Fatigue()
+Fatigue::Fatigue(void)
 {
 	name_ = "Fatigue";
 }
 
-Encumbrance::Encumbrance()
+Encumbrance::Encumbrance(void)
 {
 	name_ = "Encumbrance";
 }
 
-Aggression::Aggression()
+Aggression::Aggression(void)
 {
 	name_ = "Aggression";
 }
 
-Confidence::Confidence()
+Confidence::Confidence(void)
 {
 	name_ = "Confidence";
 }
 
-Disposition::Disposition()
+Disposition::Disposition(void)
 {
 	name_ = "Disposition";
 }
 
-EnergyLevel::EnergyLevel()
+EnergyLevel::EnergyLevel(void)
 {
 	name_ = "EnergyLevel";
 }
 
-Responsibility::Responsibility()
+Responsibility::Responsibility(void)
 {
 	name_ = "Responsibility";
 }

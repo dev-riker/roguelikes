@@ -26,11 +26,11 @@
 
 #define SKILL_STARTING_VALUE                (5)
 
-Skill::Skill() : Attribute(), major_(false)
+Skill::Skill(void) : Attribute(), major_(false)
 {
 }
 
-bool Skill::IsMajor()
+bool Skill::IsMajor(void)
 {
     return major_;
 }
@@ -40,133 +40,133 @@ void Skill::SetMajor(bool newValue)
     major_ = newValue;
 }
 
-BladeSkill::BladeSkill()
+BladeSkill::BladeSkill(void)
 {
     name_ = "Blade";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-BluntSkill::BluntSkill()
+BluntSkill::BluntSkill(void)
 {
     name_ = "Blunt";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-HandToHandSkill::HandToHandSkill()
+HandToHandSkill::HandToHandSkill(void)
 {
     name_ = "Hand to Hand";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-ArmorerSkill::ArmorerSkill()
+ArmorerSkill::ArmorerSkill(void)
 {
     name_ = "Armorer";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-BlockSkill::BlockSkill()
+BlockSkill::BlockSkill(void)
 {
     name_ = "Block";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-HeavyArmorSkill::HeavyArmorSkill()
+HeavyArmorSkill::HeavyArmorSkill(void)
 {
     name_ = "Heavy Armor";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-AthleticsSkill::AthleticsSkill()
+AthleticsSkill::AthleticsSkill(void)
 {
     name_ = "Athletics";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-AcrobaticsSkill::AcrobaticsSkill()
+AcrobaticsSkill::AcrobaticsSkill(void)
 {
     name_ = "Acrobatics";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-LightArmorSkill::LightArmorSkill()
+LightArmorSkill::LightArmorSkill(void)
 {
     name_ = "Light Armor";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-SecuritySkill::SecuritySkill()
+SecuritySkill::SecuritySkill(void)
 {
     name_ = "Security";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-SneakSkill::SneakSkill()
+SneakSkill::SneakSkill(void)
 {
     name_ = "Sneak";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-MarksmanSkill::MarksmanSkill()
+MarksmanSkill::MarksmanSkill(void)
 {
     name_ = "Marksman";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-MercantileSkill::MercantileSkill()
+MercantileSkill::MercantileSkill(void)
 {
     name_ = "Mercantile";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-SpeechCraftSkill::SpeechCraftSkill()
+SpeechCraftSkill::SpeechCraftSkill(void)
 {
     name_ = "Speechcraft";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-IllusionSkill::IllusionSkill()
+IllusionSkill::IllusionSkill(void)
 {
     name_ = "Illusion";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-AlchemySkill::AlchemySkill()
+AlchemySkill::AlchemySkill(void)
 {
     name_ = "Alchemy";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-ConjurationSkill::ConjurationSkill()
+ConjurationSkill::ConjurationSkill(void)
 {
     name_ = "Conjuration";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-MysticismSkill::MysticismSkill()
+MysticismSkill::MysticismSkill(void)
 {
     name_ = "Mysticism";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-AlterationSkill::AlterationSkill()
+AlterationSkill::AlterationSkill(void)
 {
     name_ = "Alteration";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-DestructionSkill::DestructionSkill()
+DestructionSkill::DestructionSkill(void)
 {
     name_ = "Destruction";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-RestorationSkill::RestorationSkill()
+RestorationSkill::RestorationSkill(void)
 {
     name_ = "Restoration";
     baseValue_ = SKILL_STARTING_VALUE;
 }
 
-SkillTree::SkillTree()
+SkillTree::SkillTree(void)
 {
     majorSkills_.clear();
     minorSkills_.clear();
@@ -221,7 +221,7 @@ bool SkillTree::AddMinorSkill(Skill *newMinorSkill)
     return ret;
 }
 
-void SkillTree::UpdateSkillTree()
+void SkillTree::UpdateSkillTree(void)
 {
     if (acrobatics_->IsMajor()) {
         AddMajorSkill(acrobatics_.get());
