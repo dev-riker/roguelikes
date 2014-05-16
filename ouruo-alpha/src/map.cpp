@@ -171,8 +171,7 @@ void Map::AddItem(int32_t x, int32_t y)
     TCODRandom *rng = TCODRandom::getInstance();
     int dice = rng->getInt(0, 100);
 
-    if (dice < 70)
-    {
+    if (dice < 70) {
         // create a health potion
         Actor *healthPotion = new Actor(x, y, '!', "pozione di guarigione", TCODColor::violet);
         healthPotion->blocks_ = false;
