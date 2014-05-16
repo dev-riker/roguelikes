@@ -25,10 +25,10 @@
 #include <iostream>
 #include "main.hpp"
 
-static const int32_t ROOM_MAX_SIZE = 12;
-static const int32_t ROOM_MIN_SIZE = 6;
+static const int32_t ROOM_MAX_SIZE     = 12;
+static const int32_t ROOM_MIN_SIZE     = 6;
 static const int32_t MAX_ROOM_MONSTERS = 3;
-static const int32_t MAX_ROOM_ITEMS = 2;
+static const int32_t MAX_ROOM_ITEMS    = 2;
 
 class BspListener : public ITCODBspCallback
 {
