@@ -199,14 +199,14 @@ bool Attribute::UpdateEffect(effect_type effect, int32_t value, int32_t rounds)
 
 BasicAttributes::BasicAttributes(void)
 {
-    agility_ =		std::unique_ptr<Agility>		(new Agility());
-    endurance_ =	std::unique_ptr<Endurance>		(new Endurance());
-    intelligence_ =	std::unique_ptr<Intelligence>	(new Intelligence());
-    luck_ =			std::unique_ptr<Luck>			(new Luck());
-    personality_ =	std::unique_ptr<Personality>	(new Personality());
-    speed_ =		std::unique_ptr<Speed>			(new Speed());
-    strength_ =		std::unique_ptr<Strength>		(new Strength());
-    willpower_ =	std::unique_ptr<Willpower>		(new Willpower());
+    agility_ =      std::unique_ptr<Agility>      (new Agility());
+    endurance_ =    std::unique_ptr<Endurance>    (new Endurance());
+    intelligence_ = std::unique_ptr<Intelligence> (new Intelligence());
+    luck_ =         std::unique_ptr<Luck>         (new Luck());
+    personality_ =  std::unique_ptr<Personality>  (new Personality());
+    speed_ =        std::unique_ptr<Speed>        (new Speed());
+    strength_ =     std::unique_ptr<Strength>     (new Strength());
+    willpower_ =    std::unique_ptr<Willpower>    (new Willpower());
 
     derivedAttributes_ = nullptr;
 }
@@ -253,10 +253,10 @@ void BasicAttributes::Recompute(void)
 
 DerivedAttributes::DerivedAttributes(void)
 {
-    health_ = 		std::unique_ptr <Health> 		(new Health());
-    magicka_ = 		std::unique_ptr <Magicka> 		(new Magicka());
-    fatigue_ = 		std::unique_ptr <Fatigue> 		(new Fatigue());
-    encumbrance_ = 	std::unique_ptr <Encumbrance> 	(new Encumbrance());
+    health_ =      std::unique_ptr <Health>      (new Health());
+    magicka_ =     std::unique_ptr <Magicka>     (new Magicka());
+    fatigue_ =     std::unique_ptr <Fatigue>     (new Fatigue());
+    encumbrance_ = std::unique_ptr <Encumbrance> (new Encumbrance());
 }
 
 DerivedAttributes::~DerivedAttributes(void)
@@ -266,11 +266,11 @@ DerivedAttributes::~DerivedAttributes(void)
 
 NPCAttributes::NPCAttributes(void)
 {
-    aggression_ = 		std::unique_ptr <Aggression> 		(new Aggression());
-    confidence_ = 		std::unique_ptr <Confidence> 		(new Confidence());
-    disposition_ = 		std::unique_ptr <Disposition> 		(new Disposition());
-    energyLevel_ = 		std::unique_ptr <EnergyLevel> 		(new EnergyLevel());
-    responsibility_ = 	std::unique_ptr <Responsibility> 	(new Responsibility());
+    aggression_ =     std::unique_ptr <Aggression>     (new Aggression());
+    confidence_ =     std::unique_ptr <Confidence>     (new Confidence());
+    disposition_ =    std::unique_ptr <Disposition>    (new Disposition());
+    energyLevel_ =    std::unique_ptr <EnergyLevel>    (new EnergyLevel());
+    responsibility_ = std::unique_ptr <Responsibility> (new Responsibility());
 }
 
 NPCAttributes::~NPCAttributes(void)
