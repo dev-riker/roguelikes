@@ -33,194 +33,194 @@ static const int32_t MSG_HEIGHT		= PANEL_HEIGHT - 1;
 
 Gui::Gui(void)
 {
-	con_ = new TCODConsole(engine.screenWidth_, PANEL_HEIGHT);
+    con_ = new TCODConsole(engine.screenWidth_, PANEL_HEIGHT);
 }
 
 Gui::~Gui(void)
 {
-	delete con_;
-	Clear();
+    delete con_;
+    Clear();
 }
 
 void Gui::Clear(void)
 {
-	log_.clearAndDelete();
+    log_.clearAndDelete();
 }
 
 void Gui::Render(void)
 {
-	// clear the GUI console
-	con_->setDefaultBackground(TCODColor::black);
-	con_->clear();
+    // clear the GUI console
+    con_->setDefaultBackground(TCODColor::black);
+    con_->clear();
 
-	// draw the health bar
-	//RenderBar(1, 1, BAR_WIDTH, "HP", engine.player_->destructible_->hp_, engine.player_->destructible_->maxHp_, TCODColor::lightRed, TCODColor::darkerRed);
+    // draw the health bar
+    //RenderBar(1, 1, BAR_WIDTH, "HP", engine.player_->destructible_->hp_, engine.player_->destructible_->maxHp_, TCODColor::lightRed, TCODColor::darkerRed);
     RenderBar(1, 1, BAR_WIDTH, "HP", engine.player_->destructible_->mobileClass_.basicAttributes_.GetHealth()->GetCurrValue(),
             engine.player_->destructible_->mobileClass_.basicAttributes_.GetHealth()->GetBaseValue(), TCODColor::lightRed, TCODColor::darkerRed);
 
-	// draw the message log
-	int32_t y = 1;
-	float colorCoef = 0.4f;
+    // draw the message log
+    int32_t y = 1;
+    float colorCoef = 0.4f;
 
-	for (message *msg : log_) {
-		con_->setDefaultForeground(msg->col * colorCoef);
-		con_->print(MSG_X, y, msg->text);
-		y++;
-		if (colorCoef < 1.0f) {
-			colorCoef += 0.3f;
-		}
-	}
+    for (message *msg : log_) {
+        con_->setDefaultForeground(msg->col * colorCoef);
+        con_->print(MSG_X, y, msg->text);
+        y++;
+        if (colorCoef < 1.0f) {
+            colorCoef += 0.3f;
+        }
+    }
 
-	// mouse look
-	RenderMouseLook();
+    // mouse look
+    RenderMouseLook();
 
-	// blit the GUI console on the root console
-	TCODConsole::blit(con_, 0, 0, engine.screenWidth_, PANEL_HEIGHT, TCODConsole::root, 0, engine.screenHeight_ - PANEL_HEIGHT);
+    // blit the GUI console on the root console
+    TCODConsole::blit(con_, 0, 0, engine.screenWidth_, PANEL_HEIGHT, TCODConsole::root, 0, engine.screenHeight_ - PANEL_HEIGHT);
 }
 
 void Gui::RenderBar(int32_t x, int32_t y, int32_t width, const char *name, float value, float maxValue, const TCODColor &barColor, const TCODColor &backColor)
 {
-	// fill the background
-	con_->setDefaultBackground(backColor);
-	con_->rect(x, y, width, 1, false, TCOD_BKGND_SET);
+    // fill the background
+    con_->setDefaultBackground(backColor);
+    con_->rect(x, y, width, 1, false, TCOD_BKGND_SET);
 
-	int32_t barWidth = (int32_t) (value / maxValue * width);
-	if (barWidth > 0) {
-		// draw the bar
-		con_->setDefaultBackground(barColor);
-		con_->rect(x, y, barWidth, 1, false, TCOD_BKGND_SET);
-	}
-	// print text on top of the bar
-	con_->setDefaultForeground(TCODColor::white);
-	con_->printEx(x + width / 2, y, TCOD_BKGND_NONE, TCOD_CENTER, "%s : %g/%g", name, value, maxValue);
+    int32_t barWidth = (int32_t) (value / maxValue * width);
+    if (barWidth > 0) {
+        // draw the bar
+        con_->setDefaultBackground(barColor);
+        con_->rect(x, y, barWidth, 1, false, TCOD_BKGND_SET);
+    }
+    // print text on top of the bar
+    con_->setDefaultForeground(TCODColor::white);
+    con_->printEx(x + width / 2, y, TCOD_BKGND_NONE, TCOD_CENTER, "%s : %g/%g", name, value, maxValue);
 }
 
 Gui::message::message(const char *text, const TCODColor &col) :
-	text(strdup(text)), col(col)
+        text(strdup(text)), col(col)
 {
 }
 
 Gui::message::~message(void)
 {
-	free(text);
+    free(text);
 }
 
 void Gui::RenderMouseLook(void)
 {
-	if (!engine.map_->IsInFov(engine.mouse_.cx, engine.mouse_.cy)) {
-		// if mouse is out of fov, nothing to render
-		return;
-	}
-	char buf[128] = "";
-	bool first = true;
+    if (!engine.map_->IsInFov(engine.mouse_.cx, engine.mouse_.cy)) {
+        // if mouse is out of fov, nothing to render
+        return;
+    }
+    char buf[128] = "";
+    bool first = true;
 
-	for (Actor *actor : engine.actors_) {
-		// find actors under the mouse cursor
-		if ((actor->x_ == engine.mouse_.cx) && (actor->y_ == engine.mouse_.cy)) {
-			if (!first) {
-				strcat(buf, ", ");
-			} else {
-				first = false;
-			}
-			strcat(buf, actor->name_);
-		}
-	}
-	// display the list of actors under the mouse cursor
-	con_->setDefaultForeground(TCODColor::lightGrey);
-	con_->print(1, 0, buf);
+    for (Actor *actor : engine.actors_) {
+        // find actors under the mouse cursor
+        if ((actor->x_ == engine.mouse_.cx) && (actor->y_ == engine.mouse_.cy)) {
+            if (!first) {
+                strcat(buf, ", ");
+            } else {
+                first = false;
+            }
+            strcat(buf, actor->name_);
+        }
+    }
+    // display the list of actors under the mouse cursor
+    con_->setDefaultForeground(TCODColor::lightGrey);
+    con_->print(1, 0, buf);
 }
 
 void Gui::Message(const TCODColor &col, const char *text, ...)
 {
-	// build the text
-	va_list ap;
-	char buf[128];
-	va_start(ap, text);
-	vsprintf(buf, text, ap);
-	va_end(ap);
+    // build the text
+    va_list ap;
+    char buf[128];
+    va_start(ap, text);
+    vsprintf(buf, text, ap);
+    va_end(ap);
 
-	char *lineBegin = buf;
-	char *lineEnd;
-	do {
-		// make room for the new message
-		if (log_.size() == MSG_HEIGHT) {
-			message *toRemove = log_.get(0);
-			log_.remove(toRemove);
-			delete toRemove;
-		}
+    char *lineBegin = buf;
+    char *lineEnd;
+    do {
+        // make room for the new message
+        if (log_.size() == MSG_HEIGHT) {
+            message *toRemove = log_.get(0);
+            log_.remove(toRemove);
+            delete toRemove;
+        }
 
-		// detect end of the line
-		lineEnd = strchr(lineBegin, '\n');
-		if ( lineEnd ) {
-			*lineEnd = '\0';
-		}
+        // detect end of the line
+        lineEnd = strchr(lineBegin, '\n');
+        if ( lineEnd ) {
+            *lineEnd = '\0';
+        }
 
-		// add a new message to the log
-		message *msg = new message(lineBegin, col);
-		log_.push(msg);
+        // add a new message to the log
+        message *msg = new message(lineBegin, col);
+        log_.push(msg);
 
-		// go to next line
-		lineBegin = lineEnd + 1;
-	}
-	while (lineEnd);
+        // go to next line
+        lineBegin = lineEnd + 1;
+    }
+    while (lineEnd);
 }
 
 Menu::~Menu(void)
 {
-	Clear();
+    Clear();
 }
 
 void Menu::Clear(void)
 {
-	items_.clearAndDelete();
+    items_.clearAndDelete();
 }
 
 void Menu::AddItem(MenuItemCode code, const char *label)
 {
-	MenuItem *item = new MenuItem();
-	item->code = code;
-	item->label = label;
-	items_.push(item);
+    MenuItem *item = new MenuItem();
+    item->code = code;
+    item->label = label;
+    items_.push(item);
 }
 
 Menu::MenuItemCode Menu::Pick(void)
 {
-	static TCODImage img("menu_background1.png");
-	int32_t selectedItem = 0;
-	while(!TCODConsole::isWindowClosed()) {
-		img.blit2x(TCODConsole::root, 0, 0);
-		int32_t currentItem = 0;
+    static TCODImage img("menu_background1.png");
+    int32_t selectedItem = 0;
+    while(!TCODConsole::isWindowClosed()) {
+        img.blit2x(TCODConsole::root, 0, 0);
+        int32_t currentItem = 0;
 
-		for (MenuItem *it : items_) {
-			if (currentItem == selectedItem) {
-				TCODConsole::root->setDefaultForeground(TCODColor::lighterOrange);
-			} else {
-				TCODConsole::root->setDefaultForeground(TCODColor::lightGrey);
-			}
-			TCODConsole::root->print(10, 10 + currentItem * 3, it->label);
-			currentItem++;
-		}
-		TCODConsole::flush();
+        for (MenuItem *it : items_) {
+            if (currentItem == selectedItem) {
+                TCODConsole::root->setDefaultForeground(TCODColor::lighterOrange);
+            } else {
+                TCODConsole::root->setDefaultForeground(TCODColor::lightGrey);
+            }
+            TCODConsole::root->print(10, 10 + currentItem * 3, it->label);
+            currentItem++;
+        }
+        TCODConsole::flush();
 
-		// check key presses
-		TCOD_key_t key;
-		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
-		switch (key.vk) {
-		case TCODK_UP:
-			selectedItem--; 
-			if (selectedItem < 0) {
-				selectedItem = items_.size() - 1;
-			}
-		break;
-		case TCODK_DOWN: 
-			selectedItem = (selectedItem + 1) % items_.size(); 
-		break;
-		case TCODK_ENTER: 
-			return items_.get(selectedItem)->code;
-			break;
-		default:
-			break;
-		}
-	}
-	return NONE;
+        // check key presses
+        TCOD_key_t key;
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+        switch (key.vk) {
+            case TCODK_UP:
+                selectedItem--;
+                if (selectedItem < 0) {
+                    selectedItem = items_.size() - 1;
+                }
+                break;
+            case TCODK_DOWN:
+                selectedItem = (selectedItem + 1) % items_.size();
+                break;
+            case TCODK_ENTER:
+                return items_.get(selectedItem)->code;
+                break;
+            default:
+                break;
+        }
+    }
+    return NONE;
 }

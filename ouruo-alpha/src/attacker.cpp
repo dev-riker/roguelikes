@@ -31,15 +31,15 @@ Attacker::Attacker(float power) : power_(power)
 
 void Attacker::Attack(Actor *owner, Actor *target)
 {
-	if ((target->destructible_) && (!target->destructible_->IsDead())) {
-		if ((power_ - target->destructible_->defense_) > 0) {
-			engine.gui_->Message(owner==engine.player_ ? TCODColor::red : TCODColor::lightGrey,	"%s attacca %s per %g HP.",
-				owner->name_, target->name_, (power_ - target->destructible_->defense_));
-		} else {
-			engine.gui_->Message(TCODColor::lightGrey, "%s attacca %s ma non ha alcun effetto!", owner->name_, target->name_);
-		}
-		target->destructible_->TakeDamage(target,power_);
-	} else {
-		engine.gui_->Message(TCODColor::lightGrey, "%s attacca %s mancandolo.", owner->name_, target->name_);
-	}
+    if ((target->destructible_) && (!target->destructible_->IsDead())) {
+        if ((power_ - target->destructible_->defense_) > 0) {
+            engine.gui_->Message(owner==engine.player_ ? TCODColor::red : TCODColor::lightGrey,	"%s attacca %s per %g HP.",
+                    owner->name_, target->name_, (power_ - target->destructible_->defense_));
+        } else {
+            engine.gui_->Message(TCODColor::lightGrey, "%s attacca %s ma non ha alcun effetto!", owner->name_, target->name_);
+        }
+        target->destructible_->TakeDamage(target,power_);
+    } else {
+        engine.gui_->Message(TCODColor::lightGrey, "%s attacca %s mancandolo.", owner->name_, target->name_);
+    }
 }

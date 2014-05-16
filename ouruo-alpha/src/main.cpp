@@ -28,14 +28,13 @@ Engine engine(80,50);
 
 int main()
 {
-	engine.Load();
-    while (!TCODConsole::isWindowClosed()) 
-	{
-    	engine.Update();
-    	engine.Render();
-		TCODConsole::flush();    
+    engine.Load();
+    while (!TCODConsole::isWindowClosed()) {
+        engine.Update();
+        engine.Render();
+        TCODConsole::flush();
     }
     engine.Save();
-    
-	return 0;
+
+    return 0;
 }

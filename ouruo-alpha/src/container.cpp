@@ -30,21 +30,21 @@ Container::Container(int32_t size) : size_(size)
 
 Container::~Container(void)
 {
-	inventory.clearAndDelete();
+    inventory.clearAndDelete();
 }
 
 bool Container::Add(Actor *actor)
 {
-	if ((size_ > 0) && (inventory.size() >= size_)) {
-		// inventory full
-		return false;
-	}
-	inventory.push(actor);
+    if ((size_ > 0) && (inventory.size() >= size_)) {
+        // inventory full
+        return false;
+    }
+    inventory.push(actor);
 
-	return true;
+    return true;
 }
 
 void Container::Remove(Actor *actor)
 {
-	inventory.remove(actor);
+    inventory.remove(actor);
 }

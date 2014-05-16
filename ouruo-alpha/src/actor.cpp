@@ -34,11 +34,21 @@ Actor::Actor(int32_t x, int32_t y, int32_t ch, const char *name, const TCODColor
 
 Actor::~Actor(void)
 {
-    if (attacker_) delete attacker_;
-    if (destructible_) delete destructible_;
-    if (ai_) delete ai_;
-    if (pickable_) delete pickable_;
-    if (container_) delete container_;
+    if (attacker_) {
+        delete attacker_;
+    }
+    if (destructible_) {
+        delete destructible_;
+    }
+    if (ai_) {
+        delete ai_;
+    }
+    if (pickable_) {
+        delete pickable_;
+    }
+    if (container_) {
+        delete container_;
+    }
 }
 
 void Actor::Render(void) const
@@ -49,12 +59,15 @@ void Actor::Render(void) const
 
 void Actor::Update(void)
 {
-    if (ai_) ai_->Update(this);
+    if (ai_) {
+        ai_->Update(this);
+    }
 }
 
 float Actor::GetDistance(int32_t cx, int32_t cy) const
 {
     int32_t dx = x_ - cx;
     int32_t dy = y_ - cy;
+
     return sqrtf((float) (dx * dx + dy * dy));
 }

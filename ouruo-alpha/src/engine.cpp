@@ -26,8 +26,8 @@
 #include "main.hpp"
 
 Engine::Engine(int32_t screenWidth, int32_t screenHeight) : gameStatus(STARTUP),
-	player_(NULL), map_(NULL), fovRadius_(10),
-	screenWidth_(screenWidth), screenHeight_(screenHeight)
+                                                            player_(NULL), map_(NULL), fovRadius_(10),
+                                                            screenWidth_(screenWidth), screenHeight_(screenHeight)
 {
     TCODConsole::initRoot(screenWidth_, screenHeight_, "OurUO Tech Demo", false);
     gui_ = new Gui();
@@ -49,7 +49,7 @@ void Engine::Init(void)
 
 Engine::~Engine(void)
 {
-	Term();
+    Term();
     delete gui_;
 }
 
@@ -62,104 +62,104 @@ void Engine::Term(void)
 
 void Engine::Update(void)
 {
-	if (gameStatus == STARTUP) {
-		map_->ComputeFov();
-	}
-   	gameStatus = IDLE;
+    if (gameStatus == STARTUP) {
+        map_->ComputeFov();
+    }
+    gameStatus = IDLE;
     TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE, &lastKey_, &mouse_);
     if (lastKey_.vk == TCODK_ESCAPE) {
-    	Save();
-    	Load();
+        Save();
+        Load();
     }
     player_->Update();
     if (gameStatus == NEW_TURN) {
-    	for (Actor *actor : actors_) {
-	        if (actor != player_) {
-	            actor->Update();
-	        }
-	    }
-	}
+        for (Actor *actor : actors_) {
+            if (actor != player_) {
+                actor->Update();
+            }
+        }
+    }
 }
 
 void Engine::Render(void)
 {
-	TCODConsole::root->clear();
-	// draw the map
-	map_->Render();
-	// draw the actors
-	//for (Actor **iterator=actors_.begin(); iterator != actors_.end(); iterator++) {
-	//	Actor *actor=*iterator;
-	for (Actor *actor : actors_) {
-		if ((actor != player_) && (map_->IsInFov(actor->x_,actor->y_))) {
-	        actor->Render();
-	    }
-	}
-	player_->Render();
-	// show the player's stats
-	gui_->Render();
+    TCODConsole::root->clear();
+    // draw the map
+    map_->Render();
+    // draw the actors
+    //for (Actor **iterator=actors_.begin(); iterator != actors_.end(); iterator++) {
+    //	Actor *actor=*iterator;
+    for (Actor *actor : actors_) {
+        if ((actor != player_) && (map_->IsInFov(actor->x_,actor->y_))) {
+            actor->Render();
+        }
+    }
+    player_->Render();
+    // show the player's stats
+    gui_->Render();
 }
 
 void Engine::SendToBack(Actor *actor)
 {
-	actors_.remove(actor);
-	actors_.insertBefore(actor, 0);
+    actors_.remove(actor);
+    actors_.insertBefore(actor, 0);
 }
 
 Actor *Engine::GetActor(int32_t x, int32_t y) const
 {
-	for (Actor *actor : actors_) {
-		if ((actor->x_ == x) && (actor->y_ == y) && (actor->destructible_) && (!actor->destructible_->IsDead())) {
-			return actor;
-		}
-	}
-	return NULL;
+    for (Actor *actor : actors_) {
+        if ((actor->x_ == x) && (actor->y_ == y) && (actor->destructible_) && (!actor->destructible_->IsDead())) {
+            return actor;
+        }
+    }
+    return NULL;
 }
 
 Actor *Engine::GetClosestMonster(int32_t x, int32_t y, float range) const
 {
-	Actor *closest = NULL;
-	float bestDistance = 1E6f;
+    Actor *closest = NULL;
+    float bestDistance = 1E6f;
 
-	for (Actor *actor : actors_) {
-		if ((actor != player_) && (actor->destructible_) && (!actor->destructible_->IsDead())) {
-			float distance = actor->GetDistance(x, y);
-			if ((distance < bestDistance) && ((distance <= range) || (range == 0.0f))) {
-				bestDistance = distance;
-				closest = actor;
-			}
-		}
-	}
+    for (Actor *actor : actors_) {
+        if ((actor != player_) && (actor->destructible_) && (!actor->destructible_->IsDead())) {
+            float distance = actor->GetDistance(x, y);
+            if ((distance < bestDistance) && ((distance <= range) || (range == 0.0f))) {
+                bestDistance = distance;
+                closest = actor;
+            }
+        }
+    }
 
-	return closest;
+    return closest;
 }
 
 bool Engine::PickATile(int32_t *x, int32_t *y, float maxRange)
 {
-	while (!TCODConsole::isWindowClosed()) {
-		Render();
-		// highlight the possible range
-		for (int32_t cx = 0; cx < map_->width_; cx++) {
-			for (int32_t cy = 0; cy < map_->height_; cy++) {
-				if ((map_->IsInFov(cx,cy)) && ((maxRange == 0) || (player_->GetDistance(cx, cy) <= maxRange))) {
-					TCODColor col = TCODConsole::root->getCharBackground(cx, cy);
-					col = col * 1.2f;
-					TCODConsole::root->setCharBackground(cx, cy, col);
-				}
-			}
-		}
-		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE, &lastKey_, &mouse_);
-		if ((map_->IsInFov(mouse_.cx, mouse_.cy)) && ((maxRange == 0) || (player_->GetDistance(mouse_.cx, mouse_.cy)) <= maxRange)) {
-			TCODConsole::root->setCharBackground(mouse_.cx, mouse_.cy, TCODColor::white);
-			if (mouse_.lbutton_pressed) {
-				*x = mouse_.cx;
-				*y = mouse_.cy;
-				return true;
-			}
-		} 
-		if ((mouse_.rbutton_pressed) || (lastKey_.vk != TCODK_NONE)) {
-			return false;
-		}
-		TCODConsole::flush();
-	}
-	return false;
+    while (!TCODConsole::isWindowClosed()) {
+        Render();
+        // highlight the possible range
+        for (int32_t cx = 0; cx < map_->width_; cx++) {
+            for (int32_t cy = 0; cy < map_->height_; cy++) {
+                if ((map_->IsInFov(cx,cy)) && ((maxRange == 0) || (player_->GetDistance(cx, cy) <= maxRange))) {
+                    TCODColor col = TCODConsole::root->getCharBackground(cx, cy);
+                    col = col * 1.2f;
+                    TCODConsole::root->setCharBackground(cx, cy, col);
+                }
+            }
+        }
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE, &lastKey_, &mouse_);
+        if ((map_->IsInFov(mouse_.cx, mouse_.cy)) && ((maxRange == 0) || (player_->GetDistance(mouse_.cx, mouse_.cy)) <= maxRange)) {
+            TCODConsole::root->setCharBackground(mouse_.cx, mouse_.cy, TCODColor::white);
+            if (mouse_.lbutton_pressed) {
+                *x = mouse_.cx;
+                *y = mouse_.cy;
+                return true;
+            }
+        }
+        if ((mouse_.rbutton_pressed) || (lastKey_.vk != TCODK_NONE)) {
+            return false;
+        }
+        TCODConsole::flush();
+    }
+    return false;
 }

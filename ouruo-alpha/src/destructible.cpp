@@ -26,115 +26,115 @@
 #include "main.hpp"
 
 Destructible::Destructible(float maxHp, float defense, const char *corpseName) :
-	defense_(defense), corpseName_(corpseName)
+        defense_(defense), corpseName_(corpseName)
 {
-	/*
-	// Basic attributes
-	agility_ = std::unique_ptr<Attribute> (new Attribute());
-	agility_->SetName("Agility");
-	endurance_ = std::unique_ptr<Attribute> (new Attribute());
-	endurance_->SetName("Endurance");
-	intelligence_ = std::unique_ptr<Attribute> (new Attribute());
-	intelligence_->SetName("Intelligence");
-	luck_ = std::unique_ptr<Attribute> (new Attribute());
-	luck_->SetName("Luck");
-	personality_ = std::unique_ptr<Attribute> (new Attribute());
-	personality_->SetName("Personality");
-	speed_ = std::unique_ptr<Attribute> (new Attribute());
-	speed_->SetName("Speed");
-	strength_ = std::unique_ptr<Attribute> (new Attribute());
-	strength_->SetName("Strength");
-	willpower_ = std::unique_ptr<Attribute> (new Attribute());
-	willpower_->SetName("Willpower");
-	// Derived attributes
-	health_ = std::unique_ptr<Attribute> (new Attribute());
-	health_->SetName("Health");
-	magicka_ = std::unique_ptr<Attribute> (new Attribute());
-	magicka_->SetName("Magicka");
-	fatigue_ = std::unique_ptr<Attribute> (new Attribute());
-	fatigue_->SetName("Fatigue");
-	encumbrance_ = std::unique_ptr<Attribute> (new Attribute());
-	encumbrance_->SetName("Encumbrance");
-	*/
+    /*
+    // Basic attributes
+    agility_ = std::unique_ptr<Attribute> (new Attribute());
+    agility_->SetName("Agility");
+    endurance_ = std::unique_ptr<Attribute> (new Attribute());
+    endurance_->SetName("Endurance");
+    intelligence_ = std::unique_ptr<Attribute> (new Attribute());
+    intelligence_->SetName("Intelligence");
+    luck_ = std::unique_ptr<Attribute> (new Attribute());
+    luck_->SetName("Luck");
+    personality_ = std::unique_ptr<Attribute> (new Attribute());
+    personality_->SetName("Personality");
+    speed_ = std::unique_ptr<Attribute> (new Attribute());
+    speed_->SetName("Speed");
+    strength_ = std::unique_ptr<Attribute> (new Attribute());
+    strength_->SetName("Strength");
+    willpower_ = std::unique_ptr<Attribute> (new Attribute());
+    willpower_->SetName("Willpower");
+    // Derived attributes
+    health_ = std::unique_ptr<Attribute> (new Attribute());
+    health_->SetName("Health");
+    magicka_ = std::unique_ptr<Attribute> (new Attribute());
+    magicka_->SetName("Magicka");
+    fatigue_ = std::unique_ptr<Attribute> (new Attribute());
+    fatigue_->SetName("Fatigue");
+    encumbrance_ = std::unique_ptr<Attribute> (new Attribute());
+    encumbrance_->SetName("Encumbrance");
+    */
 }
 
 float Destructible::TakeDamage(Actor *owner, float damage)
 {
-	int32_t tmpHp = mobileClass_.basicAttributes_.GetHealth()->GetCurrValue();
-	damage -= defense_;
+    int32_t tmpHp = mobileClass_.basicAttributes_.GetHealth()->GetCurrValue();
+    damage -= defense_;
 
-	if (damage > 0) {
-		tmpHp -= damage;
-		if (tmpHp <= 0) {
-			mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(0);
-			Die(owner);
-		} else {
-			mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(tmpHp);
-		}
-	} else {
-		damage = 0;
-	}
-	return damage;
+    if (damage > 0) {
+        tmpHp -= damage;
+        if (tmpHp <= 0) {
+            mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(0);
+            Die(owner);
+        } else {
+            mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(tmpHp);
+        }
+    } else {
+        damage = 0;
+    }
+    return damage;
 }
 
 float Destructible::Heal(float amount)
 {
     int32_t tmpHp = mobileClass_.basicAttributes_.GetHealth()->GetCurrValue();
     int32_t tmpBaseValue = mobileClass_.basicAttributes_.GetHealth()->GetBaseValue();
-	tmpHp += amount;
+    tmpHp += amount;
 
-	/*
-	if (hp_ > maxHp_) {
-		amount -= hp_ - maxHp_;
-		hp_ = maxHp_;
-	}
-	*/
-	return amount;
+    /*
+    if (hp_ > maxHp_) {
+        amount -= hp_ - maxHp_;
+        hp_ = maxHp_;
+    }
+    */
+    return amount;
 }
 
 void Destructible::Die(Actor *owner)
 {
-	// transform the actor into a corpse!
-	owner->ch_ = '%';
-	owner->col_ = TCODColor::darkRed;	
-	owner->name_ = corpseName_;
-	owner->blocks_ = false;
-	// make sure corpses are drawn before living actors
-	engine.SendToBack(owner);
+    // transform the actor into a corpse!
+    owner->ch_ = '%';
+    owner->col_ = TCODColor::darkRed;
+    owner->name_ = corpseName_;
+    owner->blocks_ = false;
+    // make sure corpses are drawn before living actors
+    engine.SendToBack(owner);
 }
 
 MonsterDestructible::MonsterDestructible(float maxHp, float defense, const char *corpseName) :
-	Destructible(maxHp, defense, corpseName)
+        Destructible(maxHp, defense, corpseName)
 {
-	// NPC attributes
-	aggression_ = std::unique_ptr<Attribute> (new Attribute());
-	aggression_->SetName("Aggression");
-	confidence_ = std::unique_ptr<Attribute> (new Attribute());
-	confidence_->SetName("Confidence");
-	disposition_ = std::unique_ptr<Attribute> (new Attribute());
-	disposition_->SetName("Disposition");
-	energyLevel_ = std::unique_ptr<Attribute> (new Attribute());
-	energyLevel_->SetName("Energy Level");
-	responsibility_ = std::unique_ptr<Attribute> (new Attribute());
-	responsibility_->SetName("Responsibility");
+    // NPC attributes
+    aggression_ = std::unique_ptr<Attribute> (new Attribute());
+    aggression_->SetName("Aggression");
+    confidence_ = std::unique_ptr<Attribute> (new Attribute());
+    confidence_->SetName("Confidence");
+    disposition_ = std::unique_ptr<Attribute> (new Attribute());
+    disposition_->SetName("Disposition");
+    energyLevel_ = std::unique_ptr<Attribute> (new Attribute());
+    energyLevel_->SetName("Energy Level");
+    responsibility_ = std::unique_ptr<Attribute> (new Attribute());
+    responsibility_->SetName("Responsibility");
 }
 
 void MonsterDestructible::Die(Actor *owner)
 {
-	// transform it into a nasty corpse! it doesn't block, can't be
-	// attacked and doesn't move
-	engine.gui_->Message(TCODColor::lightGrey, "%s e' morto", owner->name_);
-	Destructible::Die(owner);
+    // transform it into a nasty corpse! it doesn't block, can't be
+    // attacked and doesn't move
+    engine.gui_->Message(TCODColor::lightGrey, "%s e' morto", owner->name_);
+    Destructible::Die(owner);
 }
 
 PlayerDestructible::PlayerDestructible(float maxHp, float defense, const char *corpseName) :
-	Destructible(maxHp, defense, corpseName)
+        Destructible(maxHp, defense, corpseName)
 {
 }
 
 void PlayerDestructible::Die(Actor *owner)
 {
-	engine.gui_->Message(TCODColor::red,"Sei morto!");
-	Destructible::Die(owner);
-	engine.gameStatus = Engine::DEFEAT;
+    engine.gui_->Message(TCODColor::red,"Sei morto!");
+    Destructible::Die(owner);
+    engine.gameStatus = Engine::DEFEAT;
 }
