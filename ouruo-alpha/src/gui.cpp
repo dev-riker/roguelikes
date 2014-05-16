@@ -26,10 +26,10 @@
 #include <stdarg.h>
 #include "main.hpp"
 
-static const int32_t PANEL_HEIGHT	= 7;
-static const int32_t BAR_WIDTH		= 20;
-static const int32_t MSG_X			= BAR_WIDTH + 2;
-static const int32_t MSG_HEIGHT		= PANEL_HEIGHT - 1;
+static const int32_t PANEL_HEIGHT   = 7;
+static const int32_t BAR_WIDTH      = 20;
+static const int32_t MSG_X          = BAR_WIDTH + 2;
+static const int32_t MSG_HEIGHT     = PANEL_HEIGHT - 1;
 
 Gui::Gui(void)
 {
