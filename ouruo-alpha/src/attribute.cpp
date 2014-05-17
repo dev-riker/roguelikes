@@ -321,6 +321,29 @@ Willpower::Willpower(void)
 Health::Health(void)
 {
     name_ = "Health";
+    subHealth_ = 0;
+    addHealth_ = 0;
+}
+
+void Health::Recompute(void)
+{
+    Attribute::Recompute();
+    currentValue_ -= subHealth_;
+    currentValue_ += addHealth_;
+
+    if (currentValue_ < 0) {
+        currentValue_ = 0;
+    }
+}
+
+void Health::SubtractHealth(int32_t damage)
+{
+    subHealth_ += damage;
+}
+
+void Health::AddHealth(int32_t healing)
+{
+    addHealth_ += healing;
 }
 
 Magicka::Magicka(void)

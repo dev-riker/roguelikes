@@ -121,6 +121,14 @@ public:
 class Health : public Attribute {
 public:
     Health(void);
+
+    virtual void Recompute(void);
+    void SubtractHealth(int32_t damage);
+    void AddHealth(int32_t healing);
+
+protected:
+    int32_t subHealth_;
+    int32_t addHealth_;
 };
 
 class Magicka : public Attribute {

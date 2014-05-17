@@ -22,6 +22,7 @@
 //                                                                                   //
 ///////////////////////////////////////////////////////////////////////////////////////
 
+#include <iostream>
 #include <stdio.h>
 #include "main.hpp"
 
@@ -69,11 +70,13 @@ float Destructible::TakeDamage(Actor *owner, float damage)
             mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(0);
             Die(owner);
         } else {
-            mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(tmpHp);
+            mobileClass_.basicAttributes_.GetHealth()->SubtractHealth((int32_t) damage);
+            mobileClass_.basicAttributes_.GetHealth()->Recompute();
         }
     } else {
         damage = 0;
     }
+
     return damage;
 }
 
@@ -83,6 +86,7 @@ float Destructible::Heal(float amount)
     int32_t tmpBaseValue = mobileClass_.basicAttributes_.GetHealth()->GetBaseValue();
     tmpHp += amount;
 
+    mobileClass_.basicAttributes_.GetHealth()->AddHealth((int32_t) amount);
     /*
     if (hp_ > maxHp_) {
         amount -= hp_ - maxHp_;
