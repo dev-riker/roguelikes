@@ -55,7 +55,7 @@ Attribute::~Attribute(void)
 {
 }
 
-void Attribute::AddBaseValueBonus(int32_t bonus)
+void Attribute::AddBaseValueBonus(float bonus)
 {
     baseValue_ += bonus;
     if (baseValue_ < 0) {
@@ -63,17 +63,17 @@ void Attribute::AddBaseValueBonus(int32_t bonus)
     }
 }
 
-void Attribute::SetBaseValue(int newValue)
+void Attribute::SetBaseValue(float newValue)
 {
     baseValue_ = newValue;
 }
 
-int32_t Attribute::GetBaseValue(void) const
+float Attribute::GetBaseValue(void) const
 {
     return baseValue_;
 }
 
-int32_t Attribute::GetCurrValue(void) const
+float Attribute::GetCurrValue(void) const
 {
     return currentValue_;
 }
@@ -111,22 +111,22 @@ bool Attribute::Restore(void)
     return damaged;
 }
 
-bool Attribute::Damage(int32_t value)
+bool Attribute::Damage(float value)
 {
     return UpdateEffect(damage, -value, EFFECT_INFINITE_ROUNDS);
 }
 
-bool Attribute::Fortify(int32_t value, int32_t rounds)
+bool Attribute::Fortify(float value, int32_t rounds)
 {
     return UpdateEffect(fortify, +value, rounds);
 }
 
-bool Attribute::Drain(int32_t value, int32_t rounds)
+bool Attribute::Drain(float value, int32_t rounds)
 {
     return UpdateEffect(drain, -value, rounds);
 }
 
-bool Attribute::Absorb(int32_t value, int32_t rounds)
+bool Attribute::Absorb(float value, int32_t rounds)
 {
     return UpdateEffect(absorb, -value, rounds);
 }
@@ -135,11 +135,11 @@ void Attribute::Recompute(void)
 {
     currentValue_ = baseValue_;
 
-    for (uint32_t i = 0; i < effects_.size(); i++) {
+    for (size_t i = 0; i < effects_.size(); i++) {
         currentValue_ += effects_[i].value;
     }
-    if (currentValue_ < 0) {
-        currentValue_ = 0;
+    if (currentValue_ < 0.0f) {
+        currentValue_ = 0.0f;
     }
 }
 
@@ -157,7 +157,7 @@ bool Attribute::IsEffectFinished(active_effect_t effect)
 void Attribute::RoundTick(void)
 {
     // Scorre la lista degli effetti attivi decrementando il numero di round rimanenti
-    for (uint32_t i = 0; i < effects_.size(); i++) {
+    for (size_t i = 0; i < effects_.size(); i++) {
         if (effects_[i].remainingRounds != EFFECT_INFINITE_ROUNDS) {
             effects_[i].remainingRounds--;
         }
@@ -173,7 +173,7 @@ bool Attribute::UpdateEffect(effect_type effect, int32_t value, int32_t rounds)
     // Cerca un eventuale altro attributo già attivo e nel caso lo
     // modifica aggiornandone il valore e ricomputando il numero di round attivi.
     bool updated = false;
-    for (uint32_t i = 0; i < effects_.size(); i++) {
+    for (size_t i = 0; i < effects_.size(); i++) {
         if (effects_[i].effect == effect) {
             updated = true;
             if (effects_[i].value < value) {
@@ -185,7 +185,7 @@ bool Attribute::UpdateEffect(effect_type effect, int32_t value, int32_t rounds)
         }
     }
 
-    if (updated == false) {
+    if (!updated) {
         active_effect_t tmpEffect;
         tmpEffect.effect = effect;
         tmpEffect.remainingRounds = rounds;
@@ -199,16 +199,18 @@ bool Attribute::UpdateEffect(effect_type effect, int32_t value, int32_t rounds)
 
 BasicAttributes::BasicAttributes(void)
 {
-    agility_ =      std::unique_ptr<Agility>      (new Agility());
-    endurance_ =    std::unique_ptr<Endurance>    (new Endurance());
-    intelligence_ = std::unique_ptr<Intelligence> (new Intelligence());
-    luck_ =         std::unique_ptr<Luck>         (new Luck());
-    personality_ =  std::unique_ptr<Personality>  (new Personality());
-    speed_ =        std::unique_ptr<Speed>        (new Speed());
-    strength_ =     std::unique_ptr<Strength>     (new Strength());
-    willpower_ =    std::unique_ptr<Willpower>    (new Willpower());
-
+    agility_ =       std::unique_ptr<Agility>       (new Agility());
+    endurance_ =     std::unique_ptr<Endurance>     (new Endurance());
+    intelligence_ =  std::unique_ptr<Intelligence>  (new Intelligence());
+    luck_ =          std::unique_ptr<Luck>          (new Luck());
+    personality_ =   std::unique_ptr<Personality>   (new Personality());
+    speed_ =         std::unique_ptr<Speed>         (new Speed());
+    strength_ =      std::unique_ptr<Strength>      (new Strength());
+    willpower_ =     std::unique_ptr<Willpower>     (new Willpower());
+    npcAttributes_ = std::unique_ptr<NPCAttributes> (new NPCAttributes());
     derivedAttributes_ = nullptr;
+    level_ = 1;
+    isNpc_ = false;
 }
 
 BasicAttributes::~BasicAttributes(void)
@@ -236,17 +238,25 @@ void BasicAttributes::Recompute(void)
     if (derivedAttributes_ != nullptr) {
         // Health = endurance_(current_value) * 2 + (endurance_(base_value) / 10) * level
         // La relazione vera al momento è ben più complicata, da aggiornare con successive modifiche
-        derivedAttributes_->health_->SetBaseValue(endurance_->GetCurrValue() * 2);
+        if (!isNpc_) {
+            derivedAttributes_->health_->SetBaseValue((endurance_->GetCurrValue() * 2.0f) + ((endurance_->GetBaseValue() / 10.0f) * level_));
+        } else {
+            derivedAttributes_->health_->SetBaseValue(((strength_->GetCurrValue() + endurance_->GetCurrValue()) / 10.0f) * 2.0f);
+        }
         derivedAttributes_->health_->Recompute();
         // Magicka = (Intelligence(current_value) * 2) + birthsign_bonus + racial_bonus
         // La relazione vera al momento è ben più complicata, da aggiornare con successive modifiche
-        derivedAttributes_->magicka_->SetBaseValue(intelligence_->GetCurrValue() * 2);
+        if (!isNpc_) {
+            derivedAttributes_->magicka_->SetBaseValue(intelligence_->GetCurrValue() * 2.0f);
+        } else {
+            derivedAttributes_->magicka_->SetBaseValue(intelligence_->GetCurrValue() * 2.5f);
+        }
         derivedAttributes_->magicka_->Recompute();
         // Fatigue = Endurance(curr_value) + Strength(curr_value) + Agility(curr_value) + Willpower(curr_value)
         derivedAttributes_->fatigue_->SetBaseValue(endurance_->GetCurrValue() + strength_->GetCurrValue() + agility_->GetCurrValue() + willpower_->GetCurrValue());
         derivedAttributes_->fatigue_->Recompute();
         // Encumbrance = 5 * Strength(curr_value)
-        derivedAttributes_->encumbrance_->SetBaseValue(strength_->GetCurrValue() * 5);
+        derivedAttributes_->encumbrance_->SetBaseValue(strength_->GetCurrValue() * 5.0f);
         derivedAttributes_->encumbrance_->Recompute();
     }
 }
@@ -321,29 +331,31 @@ Willpower::Willpower(void)
 Health::Health(void)
 {
     name_ = "Health";
-    subHealth_ = 0;
-    addHealth_ = 0;
+    currHealthMod_ = 0;
 }
 
 void Health::Recompute(void)
 {
     Attribute::Recompute();
-    currentValue_ -= subHealth_;
-    currentValue_ += addHealth_;
 
-    if (currentValue_ < 0) {
-        currentValue_ = 0;
+    currentValue_ += currHealthMod_;
+
+    if (currentValue_ < 0.0f) {
+        currentValue_ = 0.0f;
     }
 }
 
-void Health::SubtractHealth(int32_t damage)
+void Health::SubtractHealth(float damage)
 {
-    subHealth_ += damage;
+    currHealthMod_ -= damage;
 }
 
-void Health::AddHealth(int32_t healing)
+void Health::AddHealth(float healing)
 {
-    addHealth_ += healing;
+    currHealthMod_ += healing;
+    if (currHealthMod_ > 0.0f) {
+        currHealthMod_ = 0.0f;
+    }
 }
 
 Magicka::Magicka(void)

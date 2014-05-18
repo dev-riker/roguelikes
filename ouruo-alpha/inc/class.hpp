@@ -49,4 +49,9 @@ public:
     WarriorClass(void);
 };
 
+class NPCWarriorClass : public MobileBaseClass
+{
+public:
+    NPCWarriorClass(void);
+};
 #endif // _CLASS_HPP_

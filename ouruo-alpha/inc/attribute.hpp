@@ -38,20 +38,20 @@ public:
                  Attribute         (void);
     virtual      ~Attribute        (void);
 
-    void         AddBaseValueBonus (int32_t bonus);
-    void         SetBaseValue      (int32_t newValue);
-    int32_t      GetBaseValue      (void) const;
+    void         AddBaseValueBonus (float bonus);
+    void         SetBaseValue      (float newValue);
+    float        GetBaseValue      (void) const;
 
-    int32_t      GetCurrValue      (void) const;
+    float        GetCurrValue      (void) const;
 
     const char * GetName           (void) const;
     void         SetName           (std::string name);
 
     bool         Restore           (void);
-    bool         Damage            (int32_t value);
-    bool         Fortify           (int32_t value, int32_t rounds);
-    bool         Drain             (int32_t value, int32_t rounds);
-    bool         Absorb            (int32_t value, int32_t rounds);
+    bool         Damage            (float value);
+    bool         Fortify           (float value, int32_t rounds);
+    bool         Drain             (float value, int32_t rounds);
+    bool         Absorb            (float value, int32_t rounds);
 
 
     virtual void Recompute         (void);
@@ -63,14 +63,14 @@ protected:
     };
     struct active_effect_t {
         effect_type	effect;
-        int32_t     value;
+        float       value;
         int32_t     remainingRounds;
     };
 
     std::vector <active_effect_t> effects_;
 
-    int32_t     baseValue_;
-    int32_t     currentValue_;
+    float       baseValue_;
+    float       currentValue_;
     std::string name_;
 
 protected:
@@ -123,12 +123,11 @@ public:
     Health(void);
 
     virtual void Recompute(void);
-    void SubtractHealth(int32_t damage);
-    void AddHealth(int32_t healing);
+    void SubtractHealth(float damage);
+    void AddHealth(float healing);
 
 protected:
-    int32_t subHealth_;
-    int32_t addHealth_;
+    float currHealthMod_;
 };
 
 class Magicka : public Attribute {
@@ -157,6 +156,9 @@ public:
     std::unique_ptr <Encumbrance> encumbrance_;
 };
 
+// Forward declaration
+class NPCAttributes;
+
 class BasicAttributes {
 public:
     BasicAttributes           (void);
@@ -166,14 +168,17 @@ public:
     void Recompute            (void);
 
 public:
-    std::unique_ptr <Agility>      agility_;
-    std::unique_ptr <Endurance>    endurance_;
-    std::unique_ptr <Intelligence> intelligence_;
-    std::unique_ptr <Luck>         luck_;
-    std::unique_ptr <Personality>  personality_;
-    std::unique_ptr <Speed>        speed_;
-    std::unique_ptr <Strength>     strength_;
-    std::unique_ptr <Willpower>	   willpower_;
+    std::unique_ptr <Agility>       agility_;
+    std::unique_ptr <Endurance>     endurance_;
+    std::unique_ptr <Intelligence>  intelligence_;
+    std::unique_ptr <Luck>          luck_;
+    std::unique_ptr <Personality>   personality_;
+    std::unique_ptr <Speed>         speed_;
+    std::unique_ptr <Strength>      strength_;
+    std::unique_ptr <Willpower>	    willpower_;
+    std::unique_ptr <NPCAttributes> npcAttributes_;
+    int32_t                         level_;
+    bool                            isNpc_;
 
 public:
     Health *      GetHealth      (void) { return derivedAttributes_->health_.get(); };

@@ -33,30 +33,12 @@ public:
     float		  defense_;     // hit points deflected
     const char *  corpseName_;  // the actor's name once dead/destroyed
 
-    WarriorClass  mobileClass_;
-    /*
-    // Insieme dei Basic Attributes
-    std::unique_ptr <Attribute>	agility_;
-    std::unique_ptr <Attribute>	endurance_;
-    std::unique_ptr <Attribute>	intelligence_;
-    std::unique_ptr <Attribute>	luck_;
-    std::unique_ptr <Attribute>	personality_;
-    std::unique_ptr <Attribute>	speed_;
-    std::unique_ptr <Attribute>	strength_;
-    std::unique_ptr <Attribute>	willpower_;
-
-    // Insieme dei Derived Attributes
-    std::unique_ptr <Attribute>	health_;
-    std::unique_ptr <Attribute>	magicka_;
-    std::unique_ptr <Attribute>	fatigue_;
-    std::unique_ptr <Attribute>	encumbrance_;
-    */
+    MobileBaseClass  *mobileClass_;
 
 public:
                           Destructible  (float maxHp, float defense, const char *corpseName);
     virtual               ~Destructible (void) { };
-    //inline bool IsDead() { return hp_ <= 0; }
-    inline bool           IsDead        (void) { return mobileClass_.basicAttributes_.GetHealth()->GetCurrValue() <= 0; }
+    inline bool           IsDead        (void) { return  mobileClass_->basicAttributes_.GetHealth()->GetCurrValue() <= 0; }
     float                 TakeDamage    (Actor *owner, float damage);
     float                 Heal          (float amount);
     virtual void          Die           (Actor *owner);

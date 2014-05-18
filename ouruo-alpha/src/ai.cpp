@@ -273,7 +273,7 @@ void PlayerAi::DisplayCharacterSheet(Actor *owner)
     con.setDefaultForeground(TCODColor::darkRed);
     con.print(2, currRow, "Major Skills");
     con.setDefaultForeground(TCODColor::white);
-    for (iter = owner->destructible_->mobileClass_.skills_.majorSkills_.begin(); iter != owner->destructible_->mobileClass_.skills_.majorSkills_.end(); ++iter) {
+    for (iter = owner->destructible_->mobileClass_->skills_.majorSkills_.begin(); iter != owner->destructible_->mobileClass_->skills_.majorSkills_.end(); ++iter) {
         currRow++;
         con.print(2, currRow, "%s:", iter->second->GetName());
         if (iter->second->GetCurrValue() > iter->second->GetBaseValue()) {
@@ -292,7 +292,7 @@ void PlayerAi::DisplayCharacterSheet(Actor *owner)
     con.print(2, currRow, "Minor Skills");
     con.setDefaultForeground(TCODColor::white);
 
-    for (iter = owner->destructible_->mobileClass_.skills_.minorSkills_.begin(); iter != owner->destructible_->mobileClass_.skills_.minorSkills_.end(); ++iter) {
+    for (iter = owner->destructible_->mobileClass_->skills_.minorSkills_.begin(); iter != owner->destructible_->mobileClass_->skills_.minorSkills_.end(); ++iter) {
         currRow++;
         con.print(2, currRow, "%s:", iter->second->GetName());
         if (iter->second->GetCurrValue() > iter->second->GetBaseValue()) {
@@ -313,34 +313,34 @@ void PlayerAi::DisplayCharacterSheet(Actor *owner)
     con.print(25, currRow, "Basic Attributes");
     con.setDefaultForeground(TCODColor::white);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.strength_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.strength_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.intelligence_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.intelligence_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.willpower_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.willpower_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.agility_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.agility_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.speed_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.speed_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.endurance_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.endurance_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.personality_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.personality_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.basicAttributes_.luck_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->basicAttributes_.luck_.get(), currRow, 25);
 
     currRow += 2;
     con.setDefaultForeground(TCODColor::darkRed);
     con.print(25, currRow, "Derived Attributes");
     con.setDefaultForeground(TCODColor::white);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.derivedAttributes_.health_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->derivedAttributes_.health_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.derivedAttributes_.magicka_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->derivedAttributes_.magicka_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.derivedAttributes_.fatigue_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->derivedAttributes_.fatigue_.get(), currRow, 25);
     currRow++;
-    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_.derivedAttributes_.encumbrance_.get(), currRow, 25);
+    PrintAttributeOnCharacterSheet(con, (Attribute *) owner->destructible_->mobileClass_->derivedAttributes_.encumbrance_.get(), currRow, 25);
 
 
     // blit the inventory console on the root console

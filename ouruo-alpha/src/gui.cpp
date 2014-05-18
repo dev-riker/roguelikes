@@ -55,8 +55,8 @@ void Gui::Render(void)
 
     // draw the health bar
     //RenderBar(1, 1, BAR_WIDTH, "HP", engine.player_->destructible_->hp_, engine.player_->destructible_->maxHp_, TCODColor::lightRed, TCODColor::darkerRed);
-    RenderBar(1, 1, BAR_WIDTH, "HP", engine.player_->destructible_->mobileClass_.basicAttributes_.GetHealth()->GetCurrValue(),
-            engine.player_->destructible_->mobileClass_.basicAttributes_.GetHealth()->GetBaseValue(), TCODColor::lightRed, TCODColor::darkerRed);
+    RenderBar(1, 1, BAR_WIDTH, "HP", engine.player_->destructible_->mobileClass_->basicAttributes_.GetHealth()->GetCurrValue(),
+            engine.player_->destructible_->mobileClass_->basicAttributes_.GetHealth()->GetBaseValue(), TCODColor::lightRed, TCODColor::darkerRed);
 
     // draw the message log
     int32_t y = 1;

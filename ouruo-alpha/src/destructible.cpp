@@ -57,21 +57,22 @@ Destructible::Destructible(float maxHp, float defense, const char *corpseName) :
     encumbrance_ = std::unique_ptr<Attribute> (new Attribute());
     encumbrance_->SetName("Encumbrance");
     */
+    mobileClass_ = nullptr;
 }
 
 float Destructible::TakeDamage(Actor *owner, float damage)
 {
-    int32_t tmpHp = mobileClass_.basicAttributes_.GetHealth()->GetCurrValue();
+    int32_t tmpHp = mobileClass_->basicAttributes_.GetHealth()->GetCurrValue();
     damage -= defense_;
 
     if (damage > 0) {
         tmpHp -= damage;
-        if (tmpHp <= 0) {
-            mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(0);
+        mobileClass_->basicAttributes_.GetHealth()->SubtractHealth((int32_t) damage);
+        mobileClass_->basicAttributes_.GetHealth()->Recompute();
+
+        if (mobileClass_->basicAttributes_.GetHealth()->GetCurrValue() <= 0) {
+            //mobileClass_.basicAttributes_.GetHealth()->SetBaseValue(0);
             Die(owner);
-        } else {
-            mobileClass_.basicAttributes_.GetHealth()->SubtractHealth((int32_t) damage);
-            mobileClass_.basicAttributes_.GetHealth()->Recompute();
         }
     } else {
         damage = 0;
@@ -82,17 +83,13 @@ float Destructible::TakeDamage(Actor *owner, float damage)
 
 float Destructible::Heal(float amount)
 {
-    int32_t tmpHp = mobileClass_.basicAttributes_.GetHealth()->GetCurrValue();
-    int32_t tmpBaseValue = mobileClass_.basicAttributes_.GetHealth()->GetBaseValue();
+    int32_t tmpHp = mobileClass_->basicAttributes_.GetHealth()->GetCurrValue();
+    int32_t tmpBaseValue = mobileClass_->basicAttributes_.GetHealth()->GetBaseValue();
     tmpHp += amount;
 
-    mobileClass_.basicAttributes_.GetHealth()->AddHealth((int32_t) amount);
-    /*
-    if (hp_ > maxHp_) {
-        amount -= hp_ - maxHp_;
-        hp_ = maxHp_;
-    }
-    */
+    mobileClass_->basicAttributes_.GetHealth()->AddHealth((int32_t) amount);
+    mobileClass_->basicAttributes_.GetHealth()->Recompute();
+
     return amount;
 }
 
@@ -110,6 +107,7 @@ void Destructible::Die(Actor *owner)
 MonsterDestructible::MonsterDestructible(float maxHp, float defense, const char *corpseName) :
         Destructible(maxHp, defense, corpseName)
 {
+    mobileClass_ = new NPCWarriorClass();
     // NPC attributes
     aggression_ = std::unique_ptr<Attribute> (new Attribute());
     aggression_->SetName("Aggression");
@@ -134,6 +132,7 @@ void MonsterDestructible::Die(Actor *owner)
 PlayerDestructible::PlayerDestructible(float maxHp, float defense, const char *corpseName) :
         Destructible(maxHp, defense, corpseName)
 {
+    mobileClass_ = new WarriorClass();
 }
 
 void PlayerDestructible::Die(Actor *owner)
